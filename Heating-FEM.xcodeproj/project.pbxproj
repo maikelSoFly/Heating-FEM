@@ -7,24 +7,52 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7F5A88402013B75C00B0192F /* data.json in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7FF360082013AF70002530E0 /* data.json */; };
 		7FF35FC72013A028002530E0 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF35FC62013A028002530E0 /* main.swift */; };
+		7FF35FDB2013A20F002530E0 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF35FD12013A20E002530E0 /* Node.swift */; };
+		7FF35FDC2013A20F002530E0 /* ShapeFunctionDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF35FD22013A20E002530E0 /* ShapeFunctionDefinition.swift */; };
+		7FF35FDD2013A20F002530E0 /* Solver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF35FD32013A20E002530E0 /* Solver.swift */; };
+		7FF35FDE2013A20F002530E0 /* Surface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF35FD42013A20E002530E0 /* Surface.swift */; };
+		7FF35FDF2013A20F002530E0 /* Jacobian.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF35FD52013A20E002530E0 /* Jacobian.swift */; };
+		7FF35FE02013A20F002530E0 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF35FD62013A20E002530E0 /* Grid.swift */; };
+		7FF35FE12013A20F002530E0 /* GlobalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF35FD72013A20E002530E0 /* GlobalData.swift */; };
+		7FF35FE22013A20F002530E0 /* Integral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF35FD82013A20F002530E0 /* Integral.swift */; };
+		7FF35FE32013A20F002530E0 /* LocalElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF35FD92013A20F002530E0 /* LocalElement.swift */; };
+		7FF35FE42013A20F002530E0 /* Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF35FDA2013A20F002530E0 /* Element.swift */; };
+		7FF35FE82013A22E002530E0 /* JsonParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF35FE62013A22E002530E0 /* JsonParser.swift */; };
+		7FF35FE92013A22F002530E0 /* JsonSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF35FE72013A22E002530E0 /* JsonSerializer.swift */; };
+		7FF3600B2013B07E002530E0 /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = 7FF360082013AF70002530E0 /* data.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		7FF35FC12013A028002530E0 /* CopyFiles */ = {
+		7F5A883F2013B75100B0192F /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
+			dstPath = "";
+			dstSubfolderSpec = 7;
 			files = (
+				7F5A88402013B75C00B0192F /* data.json in CopyFiles */,
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		7FF35FC32013A028002530E0 /* Heating-FEM */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Heating-FEM"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FF35FC62013A028002530E0 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		7FF35FD12013A20E002530E0 /* Node.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
+		7FF35FD22013A20E002530E0 /* ShapeFunctionDefinition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShapeFunctionDefinition.swift; sourceTree = "<group>"; };
+		7FF35FD32013A20E002530E0 /* Solver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Solver.swift; sourceTree = "<group>"; };
+		7FF35FD42013A20E002530E0 /* Surface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Surface.swift; sourceTree = "<group>"; };
+		7FF35FD52013A20E002530E0 /* Jacobian.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Jacobian.swift; sourceTree = "<group>"; };
+		7FF35FD62013A20E002530E0 /* Grid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
+		7FF35FD72013A20E002530E0 /* GlobalData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalData.swift; sourceTree = "<group>"; };
+		7FF35FD82013A20F002530E0 /* Integral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Integral.swift; sourceTree = "<group>"; };
+		7FF35FD92013A20F002530E0 /* LocalElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalElement.swift; sourceTree = "<group>"; };
+		7FF35FDA2013A20F002530E0 /* Element.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Element.swift; sourceTree = "<group>"; };
+		7FF35FE62013A22E002530E0 /* JsonParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonParser.swift; sourceTree = "<group>"; };
+		7FF35FE72013A22E002530E0 /* JsonSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonSerializer.swift; sourceTree = "<group>"; };
+		7FF360082013AF70002530E0 /* data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = data.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,9 +85,46 @@
 		7FF35FC52013A028002530E0 /* Heating-FEM */ = {
 			isa = PBXGroup;
 			children = (
+				7FF360072013AF50002530E0 /* Resources */,
+				7FF35FD02013A1EE002530E0 /* Model */,
+				7FF35FE52013A223002530E0 /* Utils */,
 				7FF35FC62013A028002530E0 /* main.swift */,
 			);
 			path = "Heating-FEM";
+			sourceTree = "<group>";
+		};
+		7FF35FD02013A1EE002530E0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7FF35FDA2013A20F002530E0 /* Element.swift */,
+				7FF35FD72013A20E002530E0 /* GlobalData.swift */,
+				7FF35FD62013A20E002530E0 /* Grid.swift */,
+				7FF35FD82013A20F002530E0 /* Integral.swift */,
+				7FF35FD52013A20E002530E0 /* Jacobian.swift */,
+				7FF35FD92013A20F002530E0 /* LocalElement.swift */,
+				7FF35FD12013A20E002530E0 /* Node.swift */,
+				7FF35FD22013A20E002530E0 /* ShapeFunctionDefinition.swift */,
+				7FF35FD32013A20E002530E0 /* Solver.swift */,
+				7FF35FD42013A20E002530E0 /* Surface.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		7FF35FE52013A223002530E0 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				7FF35FE62013A22E002530E0 /* JsonParser.swift */,
+				7FF35FE72013A22E002530E0 /* JsonSerializer.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		7FF360072013AF50002530E0 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				7FF360082013AF70002530E0 /* data.json */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,7 +136,8 @@
 			buildPhases = (
 				7FF35FBF2013A028002530E0 /* Sources */,
 				7FF35FC02013A028002530E0 /* Frameworks */,
-				7FF35FC12013A028002530E0 /* CopyFiles */,
+				7FF35FFA2013AD8B002530E0 /* Resources */,
+				7F5A883F2013B75100B0192F /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -115,12 +181,35 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		7FF35FFA2013AD8B002530E0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7FF3600B2013B07E002530E0 /* data.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		7FF35FBF2013A028002530E0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				7FF35FC72013A028002530E0 /* main.swift in Sources */,
+				7FF35FDB2013A20F002530E0 /* Node.swift in Sources */,
+				7FF35FE82013A22E002530E0 /* JsonParser.swift in Sources */,
+				7FF35FE32013A20F002530E0 /* LocalElement.swift in Sources */,
+				7FF35FDF2013A20F002530E0 /* Jacobian.swift in Sources */,
+				7FF35FDD2013A20F002530E0 /* Solver.swift in Sources */,
+				7FF35FDC2013A20F002530E0 /* ShapeFunctionDefinition.swift in Sources */,
+				7FF35FE42013A20F002530E0 /* Element.swift in Sources */,
+				7FF35FE02013A20F002530E0 /* Grid.swift in Sources */,
+				7FF35FE22013A20F002530E0 /* Integral.swift in Sources */,
+				7FF35FE12013A20F002530E0 /* GlobalData.swift in Sources */,
+				7FF35FE92013A22F002530E0 /* JsonSerializer.swift in Sources */,
+				7FF35FDE2013A20F002530E0 /* Surface.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
