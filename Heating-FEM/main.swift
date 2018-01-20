@@ -94,7 +94,3 @@ private func elementMaterialDefinition(i:Int, j:Int, nB:Int, nH:Int) -> Dictiona
 
 
 run()
-
-
-
-
