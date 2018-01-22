@@ -61,7 +61,7 @@ func run() {
                 end = Date()
                 print("\tSolver time: \(end.timeIntervalSince(start))\n")
                 
-                //MARK: - Save heatmap to file.
+                //MARK: - Save heatmap to file in /Documents/ directory.
                 if saveToFile && step % _stride == 0 {
                     _ = FileParser.write(array: heatMap[step], toFile: "Heating-FEM/heatmap-\(step).csv")
                 }
@@ -97,7 +97,7 @@ private func elementMaterialDefinition(i:Int, j:Int, nB:Int, nH:Int) -> Dictiona
     var params = Dictionary<String, Any>()
     let noNodesPerGlassPane = 5
     
-    // STRUCTURE OF OVEN WINDOW.
+    // STRUCTURE OF OVEN DOOR WINDOW.
     
     if i >= 0 && i < noNodesPerGlassPane ||  i >= (nB-1)-noNodesPerGlassPane && i < nB {
         params = GlobalData.getParameters(for: .glass)
