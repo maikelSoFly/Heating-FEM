@@ -9,9 +9,9 @@
 import Foundation
 
 var globalData:GlobalData? = nil
-fileprivate let saveToFile = false
-fileprivate let _stride = 1
-fileprivate let confFileName = "ovenConf"
+private let saveToFile = false
+private let saveStride = 1
+private let confFileName = "ovenConf"
 
 
 
@@ -57,7 +57,7 @@ func run() {
                 print("\tSolver time: \(end.timeIntervalSince(start))\n")
                 
                 //MARK: - Save heatmap to file in /Documents directory.
-                if saveToFile && step % _stride == 0 {
+                if saveToFile && step % saveStride == 0 {
                     _ = FileParser.write(array: heatMap[step], toFile: "Heating-FEM/heatmap-\(step).csv")
                 }
             }
