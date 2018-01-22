@@ -148,7 +148,7 @@ class GlobalData {
     }
     
     
-    func setStableTimeStep(for material:ElementMaterial) {
+    func setStableTimeStep(forMaterial material:ElementMaterial) {
         let params = GlobalData.getParameters(for: material)
         let k = params["k"] as! Double, c = params["c"] as! Double, ro = params["ro"] as! Double
         

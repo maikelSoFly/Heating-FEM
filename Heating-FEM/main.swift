@@ -20,7 +20,7 @@ func run() {
         if let gd = GlobalData(dict: dict) {
             globalData = gd
             gd.createGrid(materialDefinition: elementMaterialDefinition, borderConditions: borderConditions)
-            gd.setStableTimeStep(for: .glass)
+            gd.setStableTimeStep(forMaterial: .glass)
             
             let noTimeSteps = gd.tau/gd.d_tau
             var heatMap = Array(repeating: Array(repeating: Array(repeating: Double(),
@@ -56,7 +56,7 @@ func run() {
                 end = Date()
                 print("\tSolver time: \(end.timeIntervalSince(start))\n")
                 
-                //MARK: - Save heatmap to file in /Documents/ directory.
+                //MARK: - Save heatmap to file in /Documents directory.
                 if saveToFile && step % _stride == 0 {
                     _ = FileParser.write(array: heatMap[step], toFile: "Heating-FEM/heatmap-\(step).csv")
                 }
@@ -70,6 +70,8 @@ func run() {
     }
 }
 
+
+
 private func printTemperatures(arr:[[Double]]) {
     for row in arr {
         for temp in row {
@@ -81,7 +83,6 @@ private func printTemperatures(arr:[[Double]]) {
 }
 
 
-
 /// Function which defines parameters for certain element, based
 /// on its location in grid array.
 ///
@@ -91,7 +92,7 @@ private func printTemperatures(arr:[[Double]]) {
 ///   - nB: number of elements horizontally.
 ///   - nH: number of elements vertically.
 /// - Returns: Dictionary initialized with parameters for heating simulation.
-fileprivate func elementMaterialDefinition(i:Int, j:Int, nB:Int, nH:Int) -> Dictionary<String, Any> {
+private func elementMaterialDefinition(i:Int, j:Int, nB:Int, nH:Int) -> Dictionary<String, Any> {
     var params = Dictionary<String, Any>()
     let noNodesPerGlassPane = 5
     
@@ -114,7 +115,8 @@ fileprivate func elementMaterialDefinition(i:Int, j:Int, nB:Int, nH:Int) -> Dict
     return params
 }
 
-fileprivate func borderConditions(i:Int, j:Int, nB:Int, nH:Int) -> Bool {
+
+private func borderConditions(i:Int, j:Int, nB:Int, nH:Int) -> Bool {
     return  i == 0 || i == nB-1 ? true: false
 }
 
