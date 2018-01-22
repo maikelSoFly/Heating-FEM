@@ -9,8 +9,11 @@
 import Foundation
 
 var globalData:GlobalData? = nil
+let saveToFile = false
+let _stride = 1
 
-//MARK: - Main program.
+
+
 func run() {
     if let dict = FileParser.getDictionary(fromJsonFile: "data") {
         if let gd = GlobalData(dict: dict) {
@@ -22,15 +25,15 @@ func run() {
                                          c: params["c"] as! Double,
                                          ro: params["ro"] as! Double, B: gd.B, nB: gd.nB)
             
-            let _stride = 1
             let noTimeSteps = gd.tau/gd.d_tau
             var heatMap = Array(repeating: Array(repeating: Array(repeating: Double(),
                                 count: gd.nH),
                                 count: gd.nB),
                                 count: Int(noTimeSteps)+1)
             
+            //MARK: - Main loop.
             for (step, tau) in stride(from: 0, to: gd.tau+gd.d_tau, by: gd.d_tau).enumerated() {
-                print("[time: \(tau) s]")
+                print("[⏰Time step: \(tau) s]")
                 
                 for i in (0 ..< gd.nB).reversed() {
                     for j in (0 ..< gd.nH) {
@@ -46,7 +49,7 @@ func run() {
                 var start = Date()
                 gd.compute()
                 var end = Date()
-                print("Compute time: ", end.timeIntervalSince(start))
+                print("\tCompute time: \(end.timeIntervalSince(start))")
             
                 start = Date()
                 if let temperatures = Solver.gaussElimination(gk: Array(gd.H_global), rk: Array(gd.P_global)) {
@@ -56,12 +59,12 @@ func run() {
                         }
                 }
                 end = Date()
-                print("Solver time: ", end.timeIntervalSince(start))
+                print("\tSolver time: \(end.timeIntervalSince(start))\n")
                 
-                if step % _stride == 0 {
+                //MARK: - Save heatmap to file.
+                if saveToFile && step % _stride == 0 {
                     _ = FileParser.write(array: heatMap[step], toFile: "Heating-FEM/heatmap-\(step).csv")
                 }
-                
             }
             
         } else {
