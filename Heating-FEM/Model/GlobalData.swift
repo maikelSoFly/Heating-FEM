@@ -66,9 +66,8 @@ class GlobalData {
     ]
     
     enum ElementMaterial:String {
-        case material0 = "Some material from P.K."
-        case materialTest = "Test material"
-        case glass = "Sodium glass"
+        case material0 = "Material (metal) from P.K."
+        case glass = "Heat-resistant ceramic glass"
         case argon = "Argon"
     }
     
@@ -161,12 +160,6 @@ class GlobalData {
             dict["k"] = 25.0
             dict["ro"] = 7800.0
             break
-        case .materialTest:
-            dict["material"] = ElementMaterial.materialTest
-            dict["alfa"] = 1.0
-            dict["c"] = 1.0
-            dict["k"] = 1.0
-            dict["ro"] = 1.0
         case .glass:
             dict["material"] = ElementMaterial.glass
             dict["alfa"] = 5.0
@@ -177,7 +170,6 @@ class GlobalData {
             dict["ro"] = 2550.0
         case .argon:
             dict["material"] = ElementMaterial.argon
-            dict["alfa"] = nil
             dict["c"] = 520.0
             dict["k"] = 0.017
             dict["ro"] = 1.7

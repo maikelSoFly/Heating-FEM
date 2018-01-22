@@ -17,10 +17,12 @@ func run() {
             globalData = gd
             gd.createGrid(materialDefinition: elementMaterialDefinition)
             
-//            let Asr = 0.5085/(660*12500.85)
-//            gd.d_tau = pow(gd.B/Double(gd.nB), 2.0)/(0.5*Asr)
-//            print(gd.d_tau, gd.H)
+            let params = GlobalData.getParameters(for: .glass)
+            gd.d_tau = calculateTimeStep(k: params["k"] as! Double,
+                                         c: params["c"] as! Double,
+                                         ro: params["ro"] as! Double, B: gd.B, nB: gd.nB)
             
+            let _stride = 1
             let noTimeSteps = gd.tau/gd.d_tau
             var heatMap = Array(repeating: Array(repeating: Array(repeating: Double(),
                                 count: gd.nH),
@@ -56,7 +58,10 @@ func run() {
                 end = Date()
                 print("Solver time: ", end.timeIntervalSince(start))
                 
-                _ = FileParser.write(array: heatMap[step], toFile: "Heating-FEM/Fast/heatmap-\(step).csv")
+                if step % _stride == 0 {
+                    _ = FileParser.write(array: heatMap[step], toFile: "Heating-FEM/heatmap-\(step).csv")
+                }
+                
             }
             
         } else {
@@ -65,6 +70,14 @@ func run() {
     } else {
         print("JsonParser returned nil.")
     }
+}
+
+
+func calculateTimeStep(k:Double, c:Double, ro:Double, B:Double, nB:Int) -> Double {
+    let Asr = k/(c*ro)
+    let d_tau = pow(B/Double(nB), 2.0)/(0.5*Asr)
+    
+    return ceil(d_tau)
 }
 
 
