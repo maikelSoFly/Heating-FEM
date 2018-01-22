@@ -101,7 +101,7 @@ class Grid {
     
     func writeGrid(toJsonFile filename:String) {
         let JsonGrid = JSONSerializer.toJson(self, prettify: true)
-        JsonParser.write(data: JsonGrid, toFile: filename)
+        FileParser.write(data: JsonGrid, toFile: filename)
     }
 }
 

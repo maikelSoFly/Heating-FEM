@@ -9,49 +9,54 @@
 import Foundation
 
 class Solver {
-    static func gaussElimination(n:Int, gk:[[Double]], rk:[Double]) -> [Double] {
+    static func gaussElimination(gk:Array<Array<Double>>, rk:Array<Double>) -> Array<Double>? {
+        var A = gk, b = rk
+        let n = b.count
+        let EPSILON = 1e-10
         
-        var m:Double, s:Double, e:Double = pow(10, -12)
-        var results = Array(repeating: Double(), count: n)
-        
-        var tabAB = Array(repeating: Array(repeating: Double(), count: n+1), count: n)
-        
-        for i in 0..<n {
-            for j in 0..<n {
-                tabAB[j][i] = gk[j][i]
+        for p in 0 ..< n {
+            //MARK: - Find pivot row and swap.
+            var max = p
+            for i in (p+1) ..< n {
+                if abs(A[i][p]) > abs(A[max][p]) {
+                    max = i
+                }
+            }
+            
+            let temp = A[p]
+            A[p] = A[max]
+            A[max] = temp
+            
+            let t = b[p]
+            b[p] = b[max]
+            b[max] = t
+            
+            if abs(A[p][p]) <= EPSILON {
+                print("Matrix is singular or nearly singular")
+                return nil
+            }
+            
+            //MARK: - Pivot within A and b.
+            for i in (p+1) ..< n {
+                let alpha = A[i][p] / A[p][p]
+                b[i] -= alpha * b[p]
+                for j in p ..< n {
+                    A[i][j] -= alpha * A[p][j]
+                }
             }
         }
         
-        for i in 0..<n {
-            tabAB[i][n] = rk[i]
-        }
-        
-        for i in 0..<(n-1) {
-            for j in (i+1)..<n {
-                if abs(tabAB[i][i]) < e {
-                    print("Solver ERROR: NaN")
-                    break
-                }
-                
-                m = -tabAB[j][i] / tabAB[i][i]
-                for k in 0..<(n+1) {
-                    tabAB[j][k] += m * tabAB[i][k]
-                }
-            }
-        }
+        //MARK: - Back substitution.
+        var x = Array(repeating: Double(), count: n)
         
         for i in (0...(n-1)).reversed() {
-            s = tabAB[i][n]
-            for j in (0...(n-1)).reversed() {
-                s -= tabAB[i][j] * results[j]
+            var sum = 0.0
+            for j in (i+1) ..< n {
+                sum += A[i][j] * x[j]
             }
-            if abs(tabAB[i][i]) < e {
-                print("Solver ERROR: NaN")
-                break
-            }
-            results[i] = s/tabAB[i][i]
+            x[i] = (b[i] - sum) / A[i][i]
         }
         
-        return results
+        return x
     }
 }

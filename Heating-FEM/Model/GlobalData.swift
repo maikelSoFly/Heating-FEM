@@ -18,7 +18,7 @@ class GlobalData {
     /// Simulation time.                    [s]
     let tau:Double
     /// Simulation step time.               [s]
-    let d_tau:Double
+    var d_tau:Double
     /// Ambient temperature.                [K]
     let t_ambient:Double
     /// Ambient temperature on the left.    [K]
@@ -172,9 +172,9 @@ class GlobalData {
             dict["alfa"] = 5.0
             dict["alfa_oven"] = 7.0
             dict["alfa_fan-forced_oven"] = 35.0
-            dict["c"] = 800.0
-            dict["k"] = 1.0
-            dict["ro"] = 2500.0
+            dict["c"] = 850.0
+            dict["k"] = 1.3
+            dict["ro"] = 2550.0
         case .argon:
             dict["material"] = ElementMaterial.argon
             dict["alfa"] = nil

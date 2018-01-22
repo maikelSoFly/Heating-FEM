@@ -19,7 +19,7 @@
 		7FF35FE22013A20F002530E0 /* Integral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF35FD82013A20F002530E0 /* Integral.swift */; };
 		7FF35FE32013A20F002530E0 /* LocalElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF35FD92013A20F002530E0 /* LocalElement.swift */; };
 		7FF35FE42013A20F002530E0 /* Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF35FDA2013A20F002530E0 /* Element.swift */; };
-		7FF35FE82013A22E002530E0 /* JsonParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF35FE62013A22E002530E0 /* JsonParser.swift */; };
+		7FF35FE82013A22E002530E0 /* FileParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF35FE62013A22E002530E0 /* FileParser.swift */; };
 		7FF35FE92013A22F002530E0 /* JsonSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF35FE72013A22E002530E0 /* JsonSerializer.swift */; };
 		7FF3600B2013B07E002530E0 /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = 7FF360082013AF70002530E0 /* data.json */; };
 /* End PBXBuildFile section */
@@ -50,7 +50,7 @@
 		7FF35FD82013A20F002530E0 /* Integral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Integral.swift; sourceTree = "<group>"; };
 		7FF35FD92013A20F002530E0 /* LocalElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalElement.swift; sourceTree = "<group>"; };
 		7FF35FDA2013A20F002530E0 /* Element.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Element.swift; sourceTree = "<group>"; };
-		7FF35FE62013A22E002530E0 /* JsonParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonParser.swift; sourceTree = "<group>"; };
+		7FF35FE62013A22E002530E0 /* FileParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileParser.swift; sourceTree = "<group>"; };
 		7FF35FE72013A22E002530E0 /* JsonSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonSerializer.swift; sourceTree = "<group>"; };
 		7FF360082013AF70002530E0 /* data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = data.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -113,7 +113,7 @@
 		7FF35FE52013A223002530E0 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				7FF35FE62013A22E002530E0 /* JsonParser.swift */,
+				7FF35FE62013A22E002530E0 /* FileParser.swift */,
 				7FF35FE72013A22E002530E0 /* JsonSerializer.swift */,
 			);
 			path = Utils;
@@ -138,6 +138,7 @@
 				7FF35FC02013A028002530E0 /* Frameworks */,
 				7FF35FFA2013AD8B002530E0 /* Resources */,
 				7F5A883F2013B75100B0192F /* CopyFiles */,
+				7F9E29432014A35C00245492 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -192,6 +193,22 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		7F9E29432014A35C00245492 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "TAGS=\"TODO:|FIXME:\"\necho \"searching ${SRCROOT} for ${TAGS}\"\nfind \"${SRCROOT}\" \\( -name \"*.swift\" \\) -print0 \\\n| xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" \\\n| perl -p -e \"s/($TAGS)/ warning: \\$1/\"";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		7FF35FBF2013A028002530E0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -199,7 +216,7 @@
 			files = (
 				7FF35FC72013A028002530E0 /* main.swift in Sources */,
 				7FF35FDB2013A20F002530E0 /* Node.swift in Sources */,
-				7FF35FE82013A22E002530E0 /* JsonParser.swift in Sources */,
+				7FF35FE82013A22E002530E0 /* FileParser.swift in Sources */,
 				7FF35FE32013A20F002530E0 /* LocalElement.swift in Sources */,
 				7FF35FDF2013A20F002530E0 /* Jacobian.swift in Sources */,
 				7FF35FDD2013A20F002530E0 /* Solver.swift in Sources */,

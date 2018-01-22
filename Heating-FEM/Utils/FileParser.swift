@@ -8,11 +8,11 @@
 
 import Foundation
 
-open class JsonParser: NSObject {
-    open static func getDictionary(fromFile filename:String, ofType type:String) -> Dictionary<String, Any>? {
+open class FileParser: NSObject {
+   static func getDictionary(fromJsonFile filename:String) -> Dictionary<String, Any>? {
         var dictionary:Dictionary<String, Any>?
         
-        if let path = Bundle.main.path(forResource: filename, ofType: type) {
+        if let path = Bundle.main.path(forResource: filename, ofType: "json") {
             do {
                 let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
                 let jsonResult = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
@@ -27,20 +27,43 @@ open class JsonParser: NSObject {
         return dictionary
     }
     
-    open static func write(data:String, toFile filename:String) {
+    
+    static func write(array:[[Double]], toFile filename:String) -> Bool {
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             
             let fileURL = dir.appendingPathComponent(filename)
-       
+            var data:String = ""
+            for row in array {
+                data += (row.map{String(describing: $0)}).joined(separator: ",") + "\n"
+            }
+            
             do {
                 try data.write(to: fileURL, atomically: false, encoding: .utf8)
             }
             catch {
                 print("Writing to file error: \(error.localizedDescription)")
             }
-            print("\n\tWrite to file succeeded\n\t\(fileURL)")
+            return true
         } else {
-            print("FileManager error")
+            return false
+        }
+    }
+    
+    
+    static func write(data:String, toFile filename:String) -> Bool {
+        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            
+            let fileURL = dir.appendingPathComponent(filename)
+            
+            do {
+                try data.write(to: fileURL, atomically: false, encoding: .utf8)
+            }
+            catch {
+                print("Writing to file error: \(error.localizedDescription)")
+            }
+            return true
+        } else {
+            return false
         }
     }
 }

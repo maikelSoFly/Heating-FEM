@@ -12,13 +12,15 @@ var globalData:GlobalData? = nil
 
 //MARK: - Main program.
 func run() {
-    if let dict = JsonParser.getDictionary(fromFile: "data", ofType: "json") {
+    if let dict = FileParser.getDictionary(fromJsonFile: "data") {
         if let gd = GlobalData(dict: dict) {
             globalData = gd
             gd.createGrid(materialDefinition: elementMaterialDefinition)
             
-            /// Temperatures of every node in grid.
-            var temperatures:[Double]
+//            let Asr = 0.5085/(660*12500.85)
+//            gd.d_tau = pow(gd.B/Double(gd.nB), 2.0)/(0.5*Asr)
+//            print(gd.d_tau, gd.H)
+            
             let noTimeSteps = gd.tau/gd.d_tau
             var heatMap = Array(repeating: Array(repeating: Array(repeating: Double(),
                                 count: gd.nH),
@@ -33,23 +35,30 @@ func run() {
                         let node = gd.grid.ND[j*gd.nH+i]
                         heatMap[step][i][j] = node.temp
                         
-                        print(String(format: "%.2f", node.temp), terminator:"  ")
+                        //print(String(format: "%.2f", node.temp), terminator:"  ")
                     }
-                    print()
+                    //print()
                 }
-                print("\n\n")
+                //print("\n\n")
                 
+                var start = Date()
                 gd.compute()
-                temperatures = Solver.gaussElimination(n: gd.nh, gk: gd.H_global, rk: gd.P_global)
-                
-                //MARK: - Set temperatures to nodes.
-                for (i, node) in gd.grid.ND.enumerated() {
-                    node.temp = temperatures[i]
+                var end = Date()
+                print("Compute time: ", end.timeIntervalSince(start))
+            
+                start = Date()
+                if let temperatures = Solver.gaussElimination(gk: Array(gd.H_global), rk: Array(gd.P_global)) {
+                        //MARK: - Set temperatures to nodes.
+                        for (i, node) in gd.grid.ND.enumerated() {
+                            node.temp = temperatures[i]
+                        }
                 }
+                end = Date()
+                print("Solver time: ", end.timeIntervalSince(start))
                 
+                _ = FileParser.write(array: heatMap[step], toFile: "Heating-FEM/Fast/heatmap-\(step).csv")
             }
-            //TODO: Save heatMap to .csv
-            print(heatMap[5])
+            
         } else {
             print("Typo in JSON data.")
         }
@@ -70,15 +79,16 @@ func run() {
 /// - Returns: Dictionary initialized with parameters for heating simulation.
 private func elementMaterialDefinition(i:Int, j:Int, nB:Int, nH:Int) -> Dictionary<String, Any> {
     var params = Dictionary<String, Any>()
+    let noNodesPerGlassPane = 5
     
     // STRUCTURE OF OVEN WINDOW.
     
-    if i >= 0 && i < 2 ||  i >= 9 && i < nB {
+    if i >= 0 && i < noNodesPerGlassPane ||  i >= (nB-1)-noNodesPerGlassPane && i < nB {
         params = GlobalData.getParameters(for: .glass)
     } else {
         params = GlobalData.getParameters(for: .argon)
     }
-    
+
     if(i == 0) {
         params["t_ambient_l"] = globalData?.t_ambient_l
     }
