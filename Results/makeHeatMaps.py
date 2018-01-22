@@ -11,7 +11,7 @@ dTau = 40
 
 for i in range(32):
     heatmap = []
-    with open('heatmap-{:d}.csv'.format(i), newline='') as csvfile:
+    with open('./csv/heatmap-{:d}.csv'.format(i), newline='') as csvfile:
         content = csv.reader(csvfile, delimiter=' ', quotechar='|')
 
         for row in content:
@@ -25,5 +25,5 @@ for i in range(32):
     ax.invert_yaxis()
     ax.set_title('Heated oven door glass after: {:d} seconds'.format(dTau*i))
     fig.colorbar(im)
-    plt.savefig('heatmap-{:d}.png'.format(i))
+    plt.savefig('./png/heatmap-{:d}.png'.format(i))
     plt.close(fig)

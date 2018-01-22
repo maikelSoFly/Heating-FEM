@@ -8,9 +8,10 @@ import csv
 
 heatmaps = []
 dTau = 40
+
 for i in range(31):
     heatmap = []
-    with open('heatmap-{:d}.csv'.format(i+1), newline='') as csvfile:
+    with open('./csv/heatmap-{:d}.csv'.format(i+1), newline='') as csvfile:
         content = csv.reader(csvfile, delimiter=' ', quotechar='|')
 
         for row in content:
