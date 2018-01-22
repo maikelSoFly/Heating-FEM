@@ -12,7 +12,7 @@ stride = 40
 
 for i in range(26):
     heatmap = []
-    with open('heatmap-{:d}.csv'.format(i*stride), newline='') as csvfile:
+    with open('./csv/heatmap-{:d}.csv'.format(i*stride), newline='') as csvfile:
         content = csv.reader(csvfile, delimiter=' ', quotechar='|')
 
         for row in content:
@@ -24,7 +24,10 @@ for i in range(26):
     fig, ax = plt.subplots(nrows=1, ncols=1)
     im = ax.imshow(heatmaps[i], cmap='hot')
     ax.invert_yaxis()
-    ax.set_title('Heated oven door glass after: {:d} seconds'.format(dTau*i*stride))
-    fig.colorbar(im)
-    plt.savefig('heatmap-{:d}.png'.format(i*stride))
+    plt.xlabel('4 centimeters')
+    plt.ylabel('4 centimeters')
+    ax.set_title('Oven door glass window after: {:d} seconds'.format(dTau*i*stride))
+    cbar = fig.colorbar(im)
+    cbar.set_label('temperature [℃]')
+    plt.savefig('./png/heatmap-{:d}.png'.format(i*stride))
     plt.close(fig)
