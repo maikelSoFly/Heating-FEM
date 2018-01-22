@@ -9,21 +9,18 @@
 import Foundation
 
 var globalData:GlobalData? = nil
-let saveToFile = false
-let _stride = 1
+fileprivate let saveToFile = false
+fileprivate let _stride = 1
+fileprivate let confFileName = "ovenConf"
 
 
 
 func run() {
-    if let dict = FileParser.getDictionary(fromJsonFile: "data") {
+    if let dict = FileParser.getDictionary(fromJsonFile: confFileName) {
         if let gd = GlobalData(dict: dict) {
             globalData = gd
-            gd.createGrid(materialDefinition: elementMaterialDefinition)
-            
-            let params = GlobalData.getParameters(for: .glass)
-            gd.d_tau = calculateTimeStep(k: params["k"] as! Double,
-                                         c: params["c"] as! Double,
-                                         ro: params["ro"] as! Double, B: gd.B, nB: gd.nB)
+            gd.createGrid(materialDefinition: elementMaterialDefinition, borderConditions: borderConditions)
+            gd.setStableTimeStep(for: .glass)
             
             let noTimeSteps = gd.tau/gd.d_tau
             var heatMap = Array(repeating: Array(repeating: Array(repeating: Double(),
@@ -39,12 +36,10 @@ func run() {
                     for j in (0 ..< gd.nH) {
                         let node = gd.grid.ND[j*gd.nH+i]
                         heatMap[step][i][j] = node.temp
-                        
-                        //print(String(format: "%.2f", node.temp), terminator:"  ")
                     }
-                    //print()
                 }
-                //print("\n\n")
+                
+                //printTemperatures(arr: heatMap[step])
                 
                 var start = Date()
                 gd.compute()
@@ -75,13 +70,16 @@ func run() {
     }
 }
 
-
-func calculateTimeStep(k:Double, c:Double, ro:Double, B:Double, nB:Int) -> Double {
-    let Asr = k/(c*ro)
-    let d_tau = pow(B/Double(nB), 2.0)/(0.5*Asr)
-    
-    return ceil(d_tau)
+private func printTemperatures(arr:[[Double]]) {
+    for row in arr {
+        for temp in row {
+            print(String(format: "%.2f", temp), terminator:"  ")
+        }
+        print()
+    }
+    print("\n")
 }
+
 
 
 /// Function which defines parameters for certain element, based
@@ -93,7 +91,7 @@ func calculateTimeStep(k:Double, c:Double, ro:Double, B:Double, nB:Int) -> Doubl
 ///   - nB: number of elements horizontally.
 ///   - nH: number of elements vertically.
 /// - Returns: Dictionary initialized with parameters for heating simulation.
-private func elementMaterialDefinition(i:Int, j:Int, nB:Int, nH:Int) -> Dictionary<String, Any> {
+fileprivate func elementMaterialDefinition(i:Int, j:Int, nB:Int, nH:Int) -> Dictionary<String, Any> {
     var params = Dictionary<String, Any>()
     let noNodesPerGlassPane = 5
     
@@ -113,9 +111,11 @@ private func elementMaterialDefinition(i:Int, j:Int, nB:Int, nH:Int) -> Dictiona
         params["alfa"] = params["alfa_fan-forced_oven"]
     }
     
-    //return GlobalData.getParameters(for: .material0)
-    
     return params
+}
+
+fileprivate func borderConditions(i:Int, j:Int, nB:Int, nH:Int) -> Bool {
+    return  i == 0 || i == nB-1 ? true: false
 }
 
 

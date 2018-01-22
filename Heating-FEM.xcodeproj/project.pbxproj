@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7F5A88402013B75C00B0192F /* data.json in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7FF360082013AF70002530E0 /* data.json */; };
+		7F5A88402013B75C00B0192F /* ovenConf.json in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7FF360082013AF70002530E0 /* ovenConf.json */; };
+		7F9E294520168CA100245492 /* testConf.json in Resources */ = {isa = PBXBuildFile; fileRef = 7F9E294420168CA100245492 /* testConf.json */; };
+		7F9E294620168CA900245492 /* testConf.json in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7F9E294420168CA100245492 /* testConf.json */; };
 		7FF35FC72013A028002530E0 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF35FC62013A028002530E0 /* main.swift */; };
 		7FF35FDB2013A20F002530E0 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF35FD12013A20E002530E0 /* Node.swift */; };
 		7FF35FDC2013A20F002530E0 /* ShapeFunctionDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF35FD22013A20E002530E0 /* ShapeFunctionDefinition.swift */; };
@@ -21,7 +23,7 @@
 		7FF35FE42013A20F002530E0 /* Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF35FDA2013A20F002530E0 /* Element.swift */; };
 		7FF35FE82013A22E002530E0 /* FileParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF35FE62013A22E002530E0 /* FileParser.swift */; };
 		7FF35FE92013A22F002530E0 /* JsonSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF35FE72013A22E002530E0 /* JsonSerializer.swift */; };
-		7FF3600B2013B07E002530E0 /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = 7FF360082013AF70002530E0 /* data.json */; };
+		7FF3600B2013B07E002530E0 /* ovenConf.json in Resources */ = {isa = PBXBuildFile; fileRef = 7FF360082013AF70002530E0 /* ovenConf.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -31,13 +33,15 @@
 			dstPath = "";
 			dstSubfolderSpec = 7;
 			files = (
-				7F5A88402013B75C00B0192F /* data.json in CopyFiles */,
+				7F9E294620168CA900245492 /* testConf.json in CopyFiles */,
+				7F5A88402013B75C00B0192F /* ovenConf.json in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7F9E294420168CA100245492 /* testConf.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testConf.json; sourceTree = "<group>"; };
 		7FF35FC32013A028002530E0 /* Heating-FEM */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Heating-FEM"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FF35FC62013A028002530E0 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		7FF35FD12013A20E002530E0 /* Node.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
@@ -52,7 +56,7 @@
 		7FF35FDA2013A20F002530E0 /* Element.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Element.swift; sourceTree = "<group>"; };
 		7FF35FE62013A22E002530E0 /* FileParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileParser.swift; sourceTree = "<group>"; };
 		7FF35FE72013A22E002530E0 /* JsonSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonSerializer.swift; sourceTree = "<group>"; };
-		7FF360082013AF70002530E0 /* data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = data.json; sourceTree = "<group>"; };
+		7FF360082013AF70002530E0 /* ovenConf.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ovenConf.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,7 +126,8 @@
 		7FF360072013AF50002530E0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				7FF360082013AF70002530E0 /* data.json */,
+				7FF360082013AF70002530E0 /* ovenConf.json */,
+				7F9E294420168CA100245492 /* testConf.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -187,7 +192,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7FF3600B2013B07E002530E0 /* data.json in Resources */,
+				7FF3600B2013B07E002530E0 /* ovenConf.json in Resources */,
+				7F9E294520168CA100245492 /* testConf.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

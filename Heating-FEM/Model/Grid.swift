@@ -36,7 +36,8 @@ class Grid {
     ///   - nB: Number of nodes horizontally
     /// - Returns: returns Grid object
     func createGrid(H:Double, B:Double, nH:Int, nB:Int, startTemp:Double,
-                    materialDefinition: ((Int, Int, Int, Int) -> Dictionary<String, Any>)? = nil) {
+                    materialDefinition: ((Int, Int, Int, Int) -> Dictionary<String, Any>)? = nil,
+                    borderConditions: ((Int, Int, Int, Int) -> Bool)? = nil) {
        
         //MARK: - Memory alocating.
         var nodes = Array(repeating: Array(repeating: Node(), count: nH), count: nB)
@@ -49,8 +50,15 @@ class Grid {
             for j in 0..<nH {
                 let x = Double(i) * elWidth
                 let y = Double(j) * elHeight
+                
                 // Create boundry conditions
-                let status = i == 0 || i == nB-1 /*|| j == 0 || j == nH-1*/ ? true : false
+                let status:Bool
+                if let bc = borderConditions {
+                    status = bc(i, j, nB, nH)
+                } else {
+                    status = i == 0 || i == nB-1 || j == 0 || j == nH-1 ? true : false
+                }
+                
                 nodes[i][j] = Node(x: x, y: y, status: status, id: i*nB + j, startTemp:startTemp)
             }
         }

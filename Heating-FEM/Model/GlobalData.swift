@@ -139,13 +139,21 @@ class GlobalData {
     
     
     
-    func createGrid(materialDefinition: ((Int, Int, Int, Int) -> Dictionary<String, Any>)? = nil) {
+    func createGrid(materialDefinition: ((Int, Int, Int, Int) -> Dictionary<String, Any>)? = nil,
+                    borderConditions: ((Int, Int, Int, Int) -> Bool)? = nil) {
+        
         //MARK: - Creating grid.
-        if let def = materialDefinition {
-            grid.createGrid(H: H, B: B, nH: nH, nB: nB, startTemp: t_start, materialDefinition: def)
-        } else {
-            grid.createGrid(H: H, B: B, nH: nH, nB: nB, startTemp: t_start)
-        }
+        let def = materialDefinition, bc = borderConditions
+        grid.createGrid(H: H, B: B, nH: nH, nB: nB, startTemp: t_start, materialDefinition: def, borderConditions: bc)
+    }
+    
+    
+    func setStableTimeStep(for material:ElementMaterial) {
+        let params = GlobalData.getParameters(for: material)
+        let k = params["k"] as! Double, c = params["c"] as! Double, ro = params["ro"] as! Double
+        
+        let Asr = k/(c*ro)
+        self.d_tau = ceil(pow(B/Double(nB), 2.0)/(0.5*Asr))
     }
     
     
