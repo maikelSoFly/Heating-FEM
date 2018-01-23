@@ -117,7 +117,7 @@ private func elementMaterialDefinition(i:Int, j:Int, nB:Int, nH:Int) -> Dictiona
 
 
 private func borderCondition(i:Int, j:Int, nB:Int, nH:Int) -> Bool {
-    return  i == 0 || i == nB-1 ? true: false
+    return  i == 0 || i == nB-1 ? true : false
 }
 
 
