@@ -11,7 +11,7 @@ import Foundation
 var globalData:GlobalData? = nil
 private let saveToFile = false
 private let saveStride = 1
-private let confFileName = "ovenConf"
+private let confFileName = "oven_conf"
 
 
 
@@ -19,7 +19,7 @@ func run() {
     if let dict = FileParser.getDictionary(fromJsonFile: confFileName) {
         if let gd = GlobalData(dict: dict) {
             globalData = gd
-            gd.createGrid(materialDefinition: elementMaterialDefinition, borderConditions: borderConditions)
+            gd.createGrid(materialDefinition: elementMaterialDefinition, boundryCondition: borderCondition)
             gd.setStableTimeStep(forMaterial: .glass)
             
             let noTimeSteps = gd.tau/gd.d_tau
@@ -116,7 +116,7 @@ private func elementMaterialDefinition(i:Int, j:Int, nB:Int, nH:Int) -> Dictiona
 }
 
 
-private func borderConditions(i:Int, j:Int, nB:Int, nH:Int) -> Bool {
+private func borderCondition(i:Int, j:Int, nB:Int, nH:Int) -> Bool {
     return  i == 0 || i == nB-1 ? true: false
 }
 

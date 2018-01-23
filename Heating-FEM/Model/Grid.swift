@@ -37,7 +37,7 @@ class Grid {
     /// - Returns: returns Grid object
     func createGrid(H:Double, B:Double, nH:Int, nB:Int, startTemp:Double,
                     materialDefinition: ((Int, Int, Int, Int) -> Dictionary<String, Any>)? = nil,
-                    borderConditions: ((Int, Int, Int, Int) -> Bool)? = nil) {
+                    boundryCondition: ((Int, Int, Int, Int) -> Bool)? = nil) {
        
         //MARK: - Memory alocating.
         var nodes = Array(repeating: Array(repeating: Node(), count: nH), count: nB)
@@ -51,9 +51,11 @@ class Grid {
                 let x = Double(i) * elWidth
                 let y = Double(j) * elHeight
                 
-                // Create boundry conditions
+                //MARK: - Set boundry conditions.
+                // If boundryCondition function is defined use it.
+                // Otherwise set boundry conditionon on every border node.
                 let status:Bool
-                if let bc = borderConditions {
+                if let bc = boundryCondition {
                     status = bc(i, j, nB, nH)
                 } else {
                     status = i == 0 || i == nB-1 || j == 0 || j == nH-1 ? true : false
@@ -71,6 +73,7 @@ class Grid {
                                         nodes[i+1][j+1],
                                         nodes[i][j+1]
                 ]
+                
                 // If meterial function is defined, create element with individual
                 // heat siulation's parameters.
                 // Otherwise create element without individual heat siulation's parameters.
@@ -109,7 +112,7 @@ class Grid {
     
     func writeGrid(toJsonFile filename:String) {
         let JsonGrid = JSONSerializer.toJson(self, prettify: true)
-        FileParser.write(data: JsonGrid, toFile: filename)
+        _ = FileParser.write(data: JsonGrid, toFile: filename)
     }
 }
 

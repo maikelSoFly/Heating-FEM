@@ -7,11 +7,7 @@
     "t_ambient": 21,
     "t_ambient_l": 21,
     "t_ambient_r": 250,
-    "tau": 150,
-    "d_tau": 40,
-    "alfa": 0,
-    "c": 0,
-    "k": 0,
-    "ro": 0
+    "tau": 6000,
+    "d_tau": 60,
 }
 

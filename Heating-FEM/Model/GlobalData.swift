@@ -22,17 +22,17 @@ class GlobalData {
     /// Ambient temperature.                [K]
     let t_ambient:Double
     /// Ambient temperature on the left.    [K]
-    let t_ambient_l:Double
+    let t_ambient_l:Double?
     /// Ambient temperature on the right.   [K]
-    let t_ambient_r:Double
+    let t_ambient_r:Double?
     /// Heat transfer coefficient.          [W / m2 * K]
-    let alfa_global:Double
-    /// Specific heat.                      [J / kg * K]
-    let c_global:Double
-    /// Thermal conductivity.               [W/ m * K]
-    let k_global:Double
-    /// Density.                            [kg / m3]
-    let ro_global:Double
+    let alfa_default:Double
+    /// Material0 specific heat.            [J / kg * K]
+    let c_default:Double
+    /// Material0 thermal conductivity.     [W/ m * K]
+    let k_default:Double
+    /// Material0 density.                  [kg / m3]
+    let ro_default:Double
     /// Number of nodes in a column.
     let nH:Int
     /// Number of nodes in a row.
@@ -90,18 +90,17 @@ class GlobalData {
         self.d_tau = d_tau
         guard let t_ambient = dict["t_ambient"] as? Double else { return nil }
         self.t_ambient = t_ambient
-        guard let t_ambient_l = dict["t_ambient_l"] as? Double else { return nil }
+        let t_ambient_l = dict["t_ambient_l"] as? Double ?? nil
         self.t_ambient_l = t_ambient_l
-        guard let t_ambient_r = dict["t_ambient_r"] as? Double else { return nil }
+        let t_ambient_r = dict["t_ambient_r"] as? Double ?? nil
         self.t_ambient_r = t_ambient_r
-        guard let alfa = dict["alfa"] as? Double else { return nil }
-        self.alfa_global = alfa
-        guard let c = dict["c"] as? Double else { return nil }
-        self.c_global = c
-        guard let k = dict["k"] as? Double else { return nil }
-        self.k_global = k
-        guard let ro = dict["ro"] as? Double else { return nil }
-        self.ro_global = ro
+        
+        //MARK: - Setting default heating coefficients.
+        let params = GlobalData.getParameters(for: .material0)
+        self.alfa_default = params["alfa"] as! Double
+        self.c_default = params["c"] as! Double
+        self.k_default = params["k"] as! Double
+        self.ro_default = params["ro"] as! Double
         
         self.nh = nH * nB
         self.ne = (nH-1) * (nB-1)
@@ -140,11 +139,10 @@ class GlobalData {
     
     
     func createGrid(materialDefinition: ((Int, Int, Int, Int) -> Dictionary<String, Any>)? = nil,
-                    borderConditions: ((Int, Int, Int, Int) -> Bool)? = nil) {
-        
+                    boundryCondition: ((Int, Int, Int, Int) -> Bool)? = nil) {
         //MARK: - Creating grid.
-        let def = materialDefinition, bc = borderConditions
-        grid.createGrid(H: H, B: B, nH: nH, nB: nB, startTemp: t_start, materialDefinition: def, borderConditions: bc)
+        let def = materialDefinition, bc = boundryCondition
+        grid.createGrid(H: H, B: B, nH: nH, nB: nB, startTemp: t_start, materialDefinition: def, boundryCondition: bc)
     }
     
     
@@ -258,10 +256,10 @@ class GlobalData {
             //MARK: - Get heat simulation's parameters.
             // If element has its own heat simulation's parameters - use them.
             // Otherwise use global parameters from data.json.
-            let alfa = element.alfa ?? alfa_global
-            let c = element.c ?? c_global
-            let k = element.k ?? k_global
-            let ro = element.ro ?? ro_global
+            let alfa = element.alfa ?? alfa_default
+            let c = element.c ?? c_default
+            let k = element.k ?? k_default
+            let ro = element.ro ?? ro_default
             
             //MARK: - Copy parameters of current element's nodes into arrays.
             for i in 0..<4 {

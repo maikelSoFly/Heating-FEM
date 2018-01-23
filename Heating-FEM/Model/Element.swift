@@ -39,49 +39,26 @@ class Element {
     
     
     
-    init(nodes:[Node], iid:Int) {
+    init(nodes:[Node], iid:Int, parameters:Dictionary<String, Any>? = nil) {
         self.ND = nodes
         self.iid = iid
         self.borderSurfacesIndexes = [Int]()
         self.borderSurfaces = [Surface]()
-        self.material = .material0
-        self.hasParams = false
-        
-        self.SF = [
-            Surface(node1: nodes[3], node2: nodes[0]),
-            Surface(node1: nodes[0], node2: nodes[1]),
-            Surface(node1: nodes[1], node2: nodes[2]),
-            Surface(node1: nodes[2], node2: nodes[3])
-        ]
-        
-        //MARK: - Counting border surfaces
-        for (i, surface) in SF.enumerated() {
-            if surface.ND[0].status == true && surface.ND[1].status == true {
-                if i == 0 {
-                    surface.t_ambient = t_ambient_l
-                }
-                else if i == 2 {
-                    surface.t_ambient = t_ambient_r
-                }
-                borderSurfacesIndexes.append(i)
-                borderSurfaces.append(surface)
-            }
+        if let params = parameters {
+            self.material = params["material"] as? GlobalData.ElementMaterial ?? GlobalData.ElementMaterial.material0
+            self.alfa = params["alfa"] as? Double
+            self.c = params["c"] as? Double
+            self.k = params["k"] as? Double
+            self.ro = params["ro"] as? Double
+            self.t_ambient_l = params["t_ambient_l"] as? Double ?? nil
+            self.t_ambient_r = params["t_ambient_r"] as? Double ?? nil
+            self.hasParams = true
         }
-    }
-    
-    init(nodes:[Node], iid:Int, parameters:Dictionary<String, Any>) {
-        self.ND = nodes
-        self.iid = iid
-        self.borderSurfacesIndexes = [Int]()
-        self.borderSurfaces = [Surface]()
-        self.material = parameters["material"] as? GlobalData.ElementMaterial ?? GlobalData.ElementMaterial.material0
-        self.alfa = parameters["alfa"] as? Double
-        self.c = parameters["c"] as? Double
-        self.k = parameters["k"] as? Double
-        self.ro = parameters["ro"] as? Double
-        self.t_ambient_l = parameters["t_ambient_l"] as? Double
-        self.t_ambient_r = parameters["t_ambient_r"] as? Double
-        self.hasParams = true
+        else {
+            material = .material0
+            hasParams = false
+        }
+        
         
         self.SF = [
             Surface(node1: nodes[3], node2: nodes[0]),
