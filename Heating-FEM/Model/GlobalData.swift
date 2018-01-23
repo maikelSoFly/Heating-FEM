@@ -90,10 +90,9 @@ class GlobalData {
         self.d_tau = d_tau
         guard let t_ambient = dict["t_ambient"] as? Double else { return nil }
         self.t_ambient = t_ambient
-        let t_ambient_l = dict["t_ambient_l"] as? Double ?? nil
-        self.t_ambient_l = t_ambient_l
-        let t_ambient_r = dict["t_ambient_r"] as? Double ?? nil
-        self.t_ambient_r = t_ambient_r
+        
+        self.t_ambient_l = dict["t_ambient_l"] as? Double ?? nil
+        self.t_ambient_r = dict["t_ambient_r"] as? Double ?? nil
         
         //MARK: - Setting default heating coefficients.
         let params = GlobalData.getParameters(for: .material0)
