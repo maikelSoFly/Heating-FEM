@@ -4,7 +4,7 @@ Heating simulation of oven door glass window made out of two heat-resistant glas
 
 To solve such problem I used Finite Elements Method and some additional algorithms like Gauss's Elimination.
 
-All results are placed in /Results catalog, but here is some animation of the early phase of heating:
+###### H6 All results are placed in /Results catalog, but here is some animation of the early phase of heating:
 
 
 <p align="center">
