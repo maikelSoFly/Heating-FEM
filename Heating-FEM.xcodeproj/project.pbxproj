@@ -7,6 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7F55EDC520176E2400C3FDE0 /* Heating_FEM_UnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F55EDC420176E2400C3FDE0 /* Heating_FEM_UnitTests.swift */; };
+		7F55EDCD201774D900C3FDE0 /* GlobalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF35FD72013A20E002530E0 /* GlobalData.swift */; };
+		7F55EDCE201774DC00C3FDE0 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF35FD62013A20E002530E0 /* Grid.swift */; };
+		7F55EDCF201774E000C3FDE0 /* Integral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF35FD82013A20F002530E0 /* Integral.swift */; };
+		7F55EDD0201774E200C3FDE0 /* Jacobian.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF35FD52013A20E002530E0 /* Jacobian.swift */; };
+		7F55EDD1201774E500C3FDE0 /* LocalElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF35FD92013A20F002530E0 /* LocalElement.swift */; };
+		7F55EDD2201774E700C3FDE0 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF35FD12013A20E002530E0 /* Node.swift */; };
+		7F55EDD3201774EA00C3FDE0 /* ShapeFunctionDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF35FD22013A20E002530E0 /* ShapeFunctionDefinition.swift */; };
+		7F55EDD4201774EC00C3FDE0 /* Solver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF35FD32013A20E002530E0 /* Solver.swift */; };
+		7F55EDD5201774EE00C3FDE0 /* Surface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF35FD42013A20E002530E0 /* Surface.swift */; };
+		7F55EDD6201774F100C3FDE0 /* Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF35FDA2013A20F002530E0 /* Element.swift */; };
+		7F55EDD7201774F500C3FDE0 /* FileParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF35FE62013A22E002530E0 /* FileParser.swift */; };
+		7F55EDD8201774F800C3FDE0 /* JsonSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF35FE72013A22E002530E0 /* JsonSerializer.swift */; };
+		7F55EDD9201774FA00C3FDE0 /* oven_conf.json in Resources */ = {isa = PBXBuildFile; fileRef = 7FF360082013AF70002530E0 /* oven_conf.json */; };
+		7F55EDDA201774FD00C3FDE0 /* default_conf.json in Resources */ = {isa = PBXBuildFile; fileRef = 7F9E294420168CA100245492 /* default_conf.json */; };
 		7F5A88402013B75C00B0192F /* oven_conf.json in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7FF360082013AF70002530E0 /* oven_conf.json */; };
 		7F9E294520168CA100245492 /* default_conf.json in Resources */ = {isa = PBXBuildFile; fileRef = 7F9E294420168CA100245492 /* default_conf.json */; };
 		7F9E294620168CA900245492 /* default_conf.json in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7F9E294420168CA100245492 /* default_conf.json */; };
@@ -41,6 +56,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7F55EDC220176E2400C3FDE0 /* Heating-FEM-UnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Heating-FEM-UnitTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7F55EDC420176E2400C3FDE0 /* Heating_FEM_UnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Heating_FEM_UnitTests.swift; sourceTree = "<group>"; };
+		7F55EDC620176E2400C3FDE0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7F9E294420168CA100245492 /* default_conf.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = default_conf.json; sourceTree = "<group>"; };
 		7FF35FC32013A028002530E0 /* Heating-FEM */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Heating-FEM"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FF35FC62013A028002530E0 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
@@ -60,6 +78,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		7F55EDBF20176E2400C3FDE0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7FF35FC02013A028002530E0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -70,10 +95,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7F55EDC320176E2400C3FDE0 /* Heating-FEM-UnitTests */ = {
+			isa = PBXGroup;
+			children = (
+				7F55EDC420176E2400C3FDE0 /* Heating_FEM_UnitTests.swift */,
+				7F55EDC620176E2400C3FDE0 /* Info.plist */,
+			);
+			path = "Heating-FEM-UnitTests";
+			sourceTree = "<group>";
+		};
 		7FF35FBA2013A028002530E0 = {
 			isa = PBXGroup;
 			children = (
 				7FF35FC52013A028002530E0 /* Heating-FEM */,
+				7F55EDC320176E2400C3FDE0 /* Heating-FEM-UnitTests */,
 				7FF35FC42013A028002530E0 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -82,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				7FF35FC32013A028002530E0 /* Heating-FEM */,
+				7F55EDC220176E2400C3FDE0 /* Heating-FEM-UnitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -89,7 +125,7 @@
 		7FF35FC52013A028002530E0 /* Heating-FEM */ = {
 			isa = PBXGroup;
 			children = (
-				7FF360072013AF50002530E0 /* Resources */,
+				7FF360072013AF50002530E0 /* Configuration */,
 				7FF35FD02013A1EE002530E0 /* Model */,
 				7FF35FE52013A223002530E0 /* Utils */,
 				7FF35FC62013A028002530E0 /* main.swift */,
@@ -123,18 +159,35 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
-		7FF360072013AF50002530E0 /* Resources */ = {
+		7FF360072013AF50002530E0 /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
 				7FF360082013AF70002530E0 /* oven_conf.json */,
 				7F9E294420168CA100245492 /* default_conf.json */,
 			);
-			path = Resources;
+			path = Configuration;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		7F55EDC120176E2400C3FDE0 /* Heating-FEM-UnitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7F55EDC720176E2400C3FDE0 /* Build configuration list for PBXNativeTarget "Heating-FEM-UnitTests" */;
+			buildPhases = (
+				7F55EDBE20176E2400C3FDE0 /* Sources */,
+				7F55EDBF20176E2400C3FDE0 /* Frameworks */,
+				7F55EDC020176E2400C3FDE0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Heating-FEM-UnitTests";
+			productName = "Heating-FEM-UnitTests";
+			productReference = 7F55EDC220176E2400C3FDE0 /* Heating-FEM-UnitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		7FF35FC22013A028002530E0 /* Heating-FEM */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7FF35FCA2013A028002530E0 /* Build configuration list for PBXNativeTarget "Heating-FEM" */;
@@ -164,6 +217,10 @@
 				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = "Mikołaj Stępniewski";
 				TargetAttributes = {
+					7F55EDC120176E2400C3FDE0 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
 					7FF35FC22013A028002530E0 = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
@@ -183,11 +240,21 @@
 			projectRoot = "";
 			targets = (
 				7FF35FC22013A028002530E0 /* Heating-FEM */,
+				7F55EDC120176E2400C3FDE0 /* Heating-FEM-UnitTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		7F55EDC020176E2400C3FDE0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7F55EDD9201774FA00C3FDE0 /* oven_conf.json in Resources */,
+				7F55EDDA201774FD00C3FDE0 /* default_conf.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7FF35FFA2013AD8B002530E0 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -216,6 +283,26 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		7F55EDBE20176E2400C3FDE0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7F55EDD3201774EA00C3FDE0 /* ShapeFunctionDefinition.swift in Sources */,
+				7F55EDCD201774D900C3FDE0 /* GlobalData.swift in Sources */,
+				7F55EDD4201774EC00C3FDE0 /* Solver.swift in Sources */,
+				7F55EDC520176E2400C3FDE0 /* Heating_FEM_UnitTests.swift in Sources */,
+				7F55EDD7201774F500C3FDE0 /* FileParser.swift in Sources */,
+				7F55EDD1201774E500C3FDE0 /* LocalElement.swift in Sources */,
+				7F55EDCE201774DC00C3FDE0 /* Grid.swift in Sources */,
+				7F55EDD6201774F100C3FDE0 /* Element.swift in Sources */,
+				7F55EDCF201774E000C3FDE0 /* Integral.swift in Sources */,
+				7F55EDD0201774E200C3FDE0 /* Jacobian.swift in Sources */,
+				7F55EDD2201774E700C3FDE0 /* Node.swift in Sources */,
+				7F55EDD8201774F800C3FDE0 /* JsonSerializer.swift in Sources */,
+				7F55EDD5201774EE00C3FDE0 /* Surface.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7FF35FBF2013A028002530E0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -239,6 +326,34 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		7F55EDC820176E2400C3FDE0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = QZ39Q3ANW7;
+				INFOPLIST_FILE = "Heating-FEM-UnitTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mikolaj.stepniewski.Heating-FEM-UnitTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		7F55EDC920176E2400C3FDE0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = QZ39Q3ANW7;
+				INFOPLIST_FILE = "Heating-FEM-UnitTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mikolaj.stepniewski.Heating-FEM-UnitTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
 		7FF35FC82013A028002530E0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -368,6 +483,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		7F55EDC720176E2400C3FDE0 /* Build configuration list for PBXNativeTarget "Heating-FEM-UnitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7F55EDC820176E2400C3FDE0 /* Debug */,
+				7F55EDC920176E2400C3FDE0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		7FF35FBE2013A028002530E0 /* Build configuration list for PBXProject "Heating-FEM" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

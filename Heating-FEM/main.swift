@@ -10,7 +10,8 @@ import Foundation
 
 var globalData:GlobalData? = nil
 private let saveToFile = false
-private let saveStride = 1
+/// Save to file every nth time step.
+private let saveToFileStride = 1
 private let confFileName = "oven_conf"
 
 
@@ -57,7 +58,7 @@ func run() {
                 print("\tSolver time: \(end.timeIntervalSince(start))\n")
                 
                 //MARK: - Save heatmap to file in /Documents directory.
-                if saveToFile && step % saveStride == 0 {
+                if saveToFile && step % saveToFileStride == 0 {
                     _ = FileParser.write(array: heatMap[step], toFile: "Heating-FEM/heatmap-\(step).csv")
                 }
             }
@@ -98,7 +99,7 @@ private func elementMaterialDefinition(i:Int, j:Int, nB:Int, nH:Int) -> Dictiona
     
     // STRUCTURE OF OVEN DOOR WINDOW.
     
-    if i >= 0 && i < noNodesPerGlassPane ||  i >= (nB-1)-noNodesPerGlassPane && i < nB {
+    if i >= 0 && i < noNodesPerGlassPane || i >= (nB-1)-noNodesPerGlassPane && i < nB {
         params = GlobalData.getParameters(for: .glass)
     } else {
         params = GlobalData.getParameters(for: .argon)

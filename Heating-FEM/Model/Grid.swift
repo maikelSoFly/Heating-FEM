@@ -91,25 +91,6 @@ class Grid {
     }
     
     
-    func printGrid() {
-        for element in EL {
-            print("element \(element.iid)", terminator:":\t\t")
-            for node in element.ND {
-                print(node.status == true ? "•\(node.iid)" : node.iid, terminator:" ")
-            }
-            print()
-        }
-        print("\n\tNodes in system:\n")
-        for i in (0..<globalData!.nB).reversed() {
-            for j in 0..<globalData!.nH {
-                let node = ND[j*globalData!.nH + i]
-                print(node.status ? "\(node.iid)•" : node.iid, terminator:"\t")
-            }
-            print()
-        }
-    }
-    
-    
     func writeGrid(toJsonFile filename:String) {
         let JsonGrid = JSONSerializer.toJson(self, prettify: true)
         _ = FileParser.write(data: JsonGrid, toFile: filename)

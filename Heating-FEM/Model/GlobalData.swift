@@ -196,17 +196,17 @@ class GlobalData {
         
         for point in integrationPoints {
             points_dNdKsi.append([
-                ShapeFunctionDefinition.derrValue(ofShapeFunction: .first, withRespectTo: .Ksi, x: point[1]),
-                ShapeFunctionDefinition.derrValue(ofShapeFunction: .second, withRespectTo: .Ksi, x: point[1]),
-                ShapeFunctionDefinition.derrValue(ofShapeFunction: .third, withRespectTo: .Ksi, x: point[1]),
-                ShapeFunctionDefinition.derrValue(ofShapeFunction: .fourth, withRespectTo: .Ksi, x: point[1])
+                ShapeFunctionDefinition.derrValue(ofShapeFunction: .first, withRespectTo: .Ksi, lx: point[1]),
+                ShapeFunctionDefinition.derrValue(ofShapeFunction: .second, withRespectTo: .Ksi, lx: point[1]),
+                ShapeFunctionDefinition.derrValue(ofShapeFunction: .third, withRespectTo: .Ksi, lx: point[1]),
+                ShapeFunctionDefinition.derrValue(ofShapeFunction: .fourth, withRespectTo: .Ksi, lx: point[1])
             ])
             
             points_dNdEta.append([
-                ShapeFunctionDefinition.derrValue(ofShapeFunction: .first, withRespectTo: .Eta, x: point[0]),
-                ShapeFunctionDefinition.derrValue(ofShapeFunction: .second, withRespectTo: .Eta, x: point[0]),
-                ShapeFunctionDefinition.derrValue(ofShapeFunction: .third, withRespectTo: .Eta, x: point[0]),
-                ShapeFunctionDefinition.derrValue(ofShapeFunction: .fourth, withRespectTo: .Eta, x: point[0])
+                ShapeFunctionDefinition.derrValue(ofShapeFunction: .first, withRespectTo: .Eta, lx: point[0]),
+                ShapeFunctionDefinition.derrValue(ofShapeFunction: .second, withRespectTo: .Eta, lx: point[0]),
+                ShapeFunctionDefinition.derrValue(ofShapeFunction: .third, withRespectTo: .Eta, lx: point[0]),
+                ShapeFunctionDefinition.derrValue(ofShapeFunction: .fourth, withRespectTo: .Eta, lx: point[0])
             ])
             
             shapeFunctions.append([

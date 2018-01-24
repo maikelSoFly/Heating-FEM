@@ -13,25 +13,20 @@ class ShapeFunctionDefinition {
     
     private init() {}
     
-    enum ShapeFunctions:Int {
+    enum ShapeFunction:Int {
         case first = 0
         case second = 1
         case third = 2
         case fourth = 3
     }
     
-    enum LocalCoordinates {
+    enum LocalCoordinate {
         case Ksi
         case Eta
     }
     
-    enum GlobalCoordinates {
-        case x
-        case y
-    }
     
-    
-    static func value(ofShapeFunction fun:ShapeFunctions, ksi:Double, eta:Double) -> Double {
+    static func value(ofShapeFunction fun:ShapeFunction, ksi:Double, eta:Double) -> Double {
         switch fun {
         case .first:
             return (0.25)*(1-ksi)*(1-eta)
@@ -44,16 +39,17 @@ class ShapeFunctionDefinition {
         }
     }
     
-    static func derrValue(ofShapeFunction fun:ShapeFunctions, withRespectTo lclCoord:LocalCoordinates, x:Double) -> Double {
+    static func derrValue(ofShapeFunction fun:ShapeFunction, withRespectTo lclCoord:LocalCoordinate, lx:Double) -> Double {
+        // lx is value of local coordinate (Ksi or Eta).
         switch fun {
         case .first:
-            return lclCoord == .Ksi ? (-0.25)*(1-x) : (-0.25)*(1-x)
+            return lclCoord == .Ksi ? (-0.25)*(1-lx) : (-0.25)*(1-lx)
         case .second:
-            return lclCoord == .Ksi ? (0.25)*(1-x) : (-0.25)*(1+x)
+            return lclCoord == .Ksi ? (0.25)*(1-lx) : (-0.25)*(1+lx)
         case .third:
-            return lclCoord == .Ksi ? (0.25)*(1+x) : (0.25)*(1+x)
+            return lclCoord == .Ksi ? (0.25)*(1+lx) : (0.25)*(1+lx)
         case .fourth:
-            return lclCoord == .Ksi ? (-0.25)*(1+x) : (0.25)*(1-x)
+            return lclCoord == .Ksi ? (-0.25)*(1+lx) : (0.25)*(1-lx)
         }
     }
 }
