@@ -8,5 +8,5 @@ To solve such problem I used **Finite Elements Method** and some additional algo
 ---
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/maikelSoFly/Heating-FEM/master/Results/early_phase/early-phase-animation.gif" width="500"/>
+    <img src="https://raw.githubusercontent.com/maikelSoFly/Heating-FEM/master/Results/early_phase/early-phase-animation.gif" width="550"/>
 </p>
