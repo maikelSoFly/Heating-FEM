@@ -9,9 +9,9 @@
 import Foundation
 
 class GlobalData {
-    /// Grid height.                        [m]
+    /// Mesh height.                        [m]
     let H:Double
-    /// Grid width.                         [m]
+    /// Mesh width.                         [m]
     let B:Double
     /// Initial temperature.                [K]
     let t_start:Double
@@ -26,7 +26,7 @@ class GlobalData {
     /// Ambient temperature on the right.   [K]
     let t_ambient_r:Double?
     /// Heat transfer coefficient.          [W / m2 * K]
-    let alfa_default:Double
+    let alpha_default:Double
     /// Material0 specific heat.            [J / kg * K]
     let c_default:Double
     /// Material0 thermal conductivity.     [W/ m * K]
@@ -49,13 +49,13 @@ class GlobalData {
     private(set) var shapeFunctionsVals:[[Double]]
     /// H matrix for current element. H = [H]+[C]/dT.
     private(set) var H_current:[[Double]]
-    /// H matrix for entire grid. H = [H]+[C]/dT.
+    /// H matrix for entire mesh. H = [H]+[C]/dT.
     private(set) var H_global:[[Double]]
     /// P vector for current element. P = {P}+{[C]/dT}*{t0}.
     private(set) var P_current:[Double]
-    /// P vector for entire grid. P = {P}+{[C]/dT}*{t0}.
+    /// P vector for entire mesh. P = {P}+{[C]/dT}*{t0}.
     private(set) var P_global:[Double]
-    let grid:Grid
+    let mesh:Mesh
     private(set) var localElement:LocalElement
     /// Gauss's integration points with anti-clockwise direction from left-bottom.
     let points2p = [
@@ -66,8 +66,8 @@ class GlobalData {
     ]
     
     enum ElementMaterial:String {
-        case material0 = "Material (metal) from P.K."
-        case glass = "Heat-resistant ceramic glass"
+        case material0 = "Test metal"
+        case glass = "BOROFLOAT® 33 - floated borosilicate flat glass"
         case argon = "Argon"
     }
     
@@ -96,7 +96,7 @@ class GlobalData {
         
         //MARK: - Setting default heating coefficients.
         let params = GlobalData.getParameters(for: .material0)
-        self.alfa_default = params["alfa"] as! Double
+        self.alpha_default = params["alpha"] as! Double
         self.c_default = params["c"] as! Double
         self.k_default = params["k"] as! Double
         self.ro_default = params["ro"] as! Double
@@ -115,7 +115,7 @@ class GlobalData {
         self.H_current = Array(repeating: Array(repeating: Double(0), count: 4), count: 4)
         self.P_current = Array(repeating: Double(0), count: 4)
         
-        self.grid = Grid()
+        self.mesh = Mesh()
         
         //MARK: - Initializing shape functions.
         let sfuncs = calculateShapeFunctions(integrationPoints: points2p)
@@ -137,11 +137,11 @@ class GlobalData {
     
     
     
-    func createGrid(materialDefinition: ((Int, Int, Int, Int) -> Dictionary<String, Any>)? = nil,
+    func createMesh(materialDefinition: ((Int, Int, Int, Int) -> Dictionary<String, Any>)? = nil,
                     boundryCondition: ((Int, Int, Int, Int) -> Bool)? = nil) {
-        //MARK: - Creating grid.
+        //MARK: - Creating mesh.
         let def = materialDefinition, bc = boundryCondition
-        grid.createGrid(H: H, B: B, nH: nH, nB: nB, startTemp: t_start, materialDefinition: def, boundryCondition: bc)
+        mesh.createMesh(H: H, B: B, nH: nH, nB: nB, startTemp: t_start, materialDefinition: def, boundryCondition: bc)
     }
     
     
@@ -150,7 +150,16 @@ class GlobalData {
         let k = params["k"] as! Double, c = params["c"] as! Double, ro = params["ro"] as! Double
         
         let Asr = k/(c*ro)
-        self.d_tau = ceil(pow(B/Double(nB), 2.0)/(0.5*Asr))
+        self.d_tau = round(pow(B/Double(nB), 2.0)/(0.5*Asr))
+    }
+    
+    
+    static func calculateAlpha(t_surf:Double, t_ambient:Double, phi:Double? = nil) -> Double {
+        if t_ambient - t_surf < 5 {
+            return 3.49 + 0.093 * (t_ambient - t_surf)
+        } else {
+            return (phi ?? 2.32) * pow(t_ambient - t_surf, 0.25)
+        }
     }
     
     
@@ -160,19 +169,16 @@ class GlobalData {
         switch material {
         case .material0:
             dict["material"] = ElementMaterial.material0
-            dict["alfa"] = 300.0
+            dict["alpha"] = 300.0
             dict["c"] = 700.0
             dict["k"] = 25.0
             dict["ro"] = 7800.0
             break
         case .glass:
             dict["material"] = ElementMaterial.glass
-            dict["alfa"] = 5.0
-            dict["alfa_oven"] = 7.0
-            dict["alfa_fan-forced_oven"] = 35.0
-            dict["c"] = 850.0
-            dict["k"] = 1.3
-            dict["ro"] = 2550.0
+            dict["c"] = 830.0
+            dict["k"] = 1.2
+            dict["ro"] = 2230.0
         case .argon:
             dict["material"] = ElementMaterial.argon
             dict["c"] = 520.0
@@ -247,15 +253,15 @@ class GlobalData {
         var C_ij:Double
         
         
-        //MARK: - Loop through every element in the grid.
-        for element in grid.EL {
+        //MARK: - Loop through every element in the mesh.
+        for element in mesh.EL {
             //MARK: - Initialize element-local H matrix and P vector with zeros.
             self.H_current = Array(repeating: Array(repeating: Double(0), count: 4), count: 4)
             self.P_current = Array(repeating: Double(0), count: 4)
             //MARK: - Get heat simulation's parameters.
             // If element has its own heat simulation's parameters - use them.
             // Otherwise use global parameters from data.json.
-            let alfa = element.alfa ?? alfa_default
+            let alpha = element.alpha ?? alpha_default
             let c = element.c ?? c_default
             let k = element.k ?? k_default
             let ro = element.ro ?? ro_default
@@ -313,9 +319,9 @@ class GlobalData {
                 for i in 0..<2 {
                     for j in 0..<4 {
                         for k in 0..<4 {
-                            H_current[j][k] += alfa * shapeFunc![i][j] * shapeFunc![i][k] * detJ
+                            H_current[j][k] += alpha * shapeFunc![i][j] * shapeFunc![i][k] * detJ
                         }
-                        P_current[j] += alfa * t_ambient * shapeFunc![i][j] * detJ
+                        P_current[j] += alpha * t_ambient * shapeFunc![i][j] * detJ
                     }
                 }
             }

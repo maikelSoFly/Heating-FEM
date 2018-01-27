@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		7F55EDC520176E2400C3FDE0 /* Heating_FEM_UnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F55EDC420176E2400C3FDE0 /* Heating_FEM_UnitTests.swift */; };
 		7F55EDCD201774D900C3FDE0 /* GlobalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF35FD72013A20E002530E0 /* GlobalData.swift */; };
-		7F55EDCE201774DC00C3FDE0 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF35FD62013A20E002530E0 /* Grid.swift */; };
+		7F55EDCE201774DC00C3FDE0 /* Mesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF35FD62013A20E002530E0 /* Mesh.swift */; };
 		7F55EDCF201774E000C3FDE0 /* Integral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF35FD82013A20F002530E0 /* Integral.swift */; };
 		7F55EDD0201774E200C3FDE0 /* Jacobian.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF35FD52013A20E002530E0 /* Jacobian.swift */; };
 		7F55EDD1201774E500C3FDE0 /* LocalElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF35FD92013A20F002530E0 /* LocalElement.swift */; };
@@ -31,7 +31,7 @@
 		7FF35FDD2013A20F002530E0 /* Solver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF35FD32013A20E002530E0 /* Solver.swift */; };
 		7FF35FDE2013A20F002530E0 /* Surface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF35FD42013A20E002530E0 /* Surface.swift */; };
 		7FF35FDF2013A20F002530E0 /* Jacobian.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF35FD52013A20E002530E0 /* Jacobian.swift */; };
-		7FF35FE02013A20F002530E0 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF35FD62013A20E002530E0 /* Grid.swift */; };
+		7FF35FE02013A20F002530E0 /* Mesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF35FD62013A20E002530E0 /* Mesh.swift */; };
 		7FF35FE12013A20F002530E0 /* GlobalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF35FD72013A20E002530E0 /* GlobalData.swift */; };
 		7FF35FE22013A20F002530E0 /* Integral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF35FD82013A20F002530E0 /* Integral.swift */; };
 		7FF35FE32013A20F002530E0 /* LocalElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF35FD92013A20F002530E0 /* LocalElement.swift */; };
@@ -67,7 +67,7 @@
 		7FF35FD32013A20E002530E0 /* Solver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Solver.swift; sourceTree = "<group>"; };
 		7FF35FD42013A20E002530E0 /* Surface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Surface.swift; sourceTree = "<group>"; };
 		7FF35FD52013A20E002530E0 /* Jacobian.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Jacobian.swift; sourceTree = "<group>"; };
-		7FF35FD62013A20E002530E0 /* Grid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
+		7FF35FD62013A20E002530E0 /* Mesh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mesh.swift; sourceTree = "<group>"; };
 		7FF35FD72013A20E002530E0 /* GlobalData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalData.swift; sourceTree = "<group>"; };
 		7FF35FD82013A20F002530E0 /* Integral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Integral.swift; sourceTree = "<group>"; };
 		7FF35FD92013A20F002530E0 /* LocalElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalElement.swift; sourceTree = "<group>"; };
@@ -138,7 +138,7 @@
 			children = (
 				7FF35FDA2013A20F002530E0 /* Element.swift */,
 				7FF35FD72013A20E002530E0 /* GlobalData.swift */,
-				7FF35FD62013A20E002530E0 /* Grid.swift */,
+				7FF35FD62013A20E002530E0 /* Mesh.swift */,
 				7FF35FD82013A20F002530E0 /* Integral.swift */,
 				7FF35FD52013A20E002530E0 /* Jacobian.swift */,
 				7FF35FD92013A20F002530E0 /* LocalElement.swift */,
@@ -293,7 +293,7 @@
 				7F55EDC520176E2400C3FDE0 /* Heating_FEM_UnitTests.swift in Sources */,
 				7F55EDD7201774F500C3FDE0 /* FileParser.swift in Sources */,
 				7F55EDD1201774E500C3FDE0 /* LocalElement.swift in Sources */,
-				7F55EDCE201774DC00C3FDE0 /* Grid.swift in Sources */,
+				7F55EDCE201774DC00C3FDE0 /* Mesh.swift in Sources */,
 				7F55EDD6201774F100C3FDE0 /* Element.swift in Sources */,
 				7F55EDCF201774E000C3FDE0 /* Integral.swift in Sources */,
 				7F55EDD0201774E200C3FDE0 /* Jacobian.swift in Sources */,
@@ -315,7 +315,7 @@
 				7FF35FDD2013A20F002530E0 /* Solver.swift in Sources */,
 				7FF35FDC2013A20F002530E0 /* ShapeFunctionDefinition.swift in Sources */,
 				7FF35FE42013A20F002530E0 /* Element.swift in Sources */,
-				7FF35FE02013A20F002530E0 /* Grid.swift in Sources */,
+				7FF35FE02013A20F002530E0 /* Mesh.swift in Sources */,
 				7FF35FE22013A20F002530E0 /* Integral.swift in Sources */,
 				7FF35FE12013A20F002530E0 /* GlobalData.swift in Sources */,
 				7FF35FE92013A22F002530E0 /* JsonSerializer.swift in Sources */,

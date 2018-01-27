@@ -23,7 +23,7 @@ class Element {
     private(set) var material:GlobalData.ElementMaterial
     //MARK: - Individual heat simulation's parameters.
     /// Heat transfer coefficient.          [W / m2 * C]
-    private(set) var alfa:Double?
+    private(set) var alpha:Double?
     /// Specific heat.                      [J / kg * C]
     private(set) var c:Double?
     /// Thermal conductivity.               [W/ m * C]
@@ -46,7 +46,7 @@ class Element {
         self.borderSurfaces = [Surface]()
         if let params = parameters {
             self.material = params["material"] as? GlobalData.ElementMaterial ?? GlobalData.ElementMaterial.material0
-            self.alfa = params["alfa"] as? Double
+            self.alpha = params["alpha"] as? Double
             self.c = params["c"] as? Double
             self.k = params["k"] as? Double
             self.ro = params["ro"] as? Double

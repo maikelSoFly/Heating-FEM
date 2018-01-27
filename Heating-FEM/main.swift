@@ -12,7 +12,7 @@ var globalData:GlobalData? = nil
 private let saveToFile = false
 /// Save to file every nth time step.
 private let saveToFileStride = 1
-private let confFileName = "oven_conf"
+private let confFileName = "default_conf"
 
 
 
@@ -20,8 +20,9 @@ func run() {
     if let dict = FileParser.getDictionary(fromJsonFile: confFileName) {
         if let gd = GlobalData(dict: dict) {
             globalData = gd
-            gd.createGrid(materialDefinition: elementMaterialDefinition, boundryCondition: borderCondition)
-            gd.setStableTimeStep(forMaterial: .glass)
+            gd.createMesh(materialDefinition: nil, boundryCondition: nil)
+            //gd.setStableTimeStep(forMaterial: .glass)
+            
             
             let noTimeSteps = gd.tau/gd.d_tau
             var heatMap = Array(repeating: Array(repeating: Array(repeating: Double(),
@@ -35,12 +36,12 @@ func run() {
                 
                 for i in (0 ..< gd.nB).reversed() {
                     for j in (0 ..< gd.nH) {
-                        let node = gd.grid.ND[j*gd.nH+i]
+                        let node = gd.mesh.ND[j*gd.nB + i]
                         heatMap[step][i][j] = node.temp
                     }
                 }
                 
-                //printTemperatures(arr: heatMap[step])
+                printTemperatures(arr: heatMap[step])
                 
                 var start = Date()
                 gd.compute()
@@ -50,7 +51,7 @@ func run() {
                 start = Date()
                 if let temperatures = Solver.gaussElimination(gk: Array(gd.H_global), rk: Array(gd.P_global)) {
                         //MARK: - Set temperatures to nodes.
-                        for (i, node) in gd.grid.ND.enumerated() {
+                        for (i, node) in gd.mesh.ND.enumerated() {
                             node.temp = temperatures[i]
                         }
                 }
@@ -85,39 +86,42 @@ private func printTemperatures(arr:[[Double]]) {
 
 
 /// Function which defines parameters for certain element, based
-/// on its location in grid array.
+/// on its location in the mesh array.
 ///
 /// - Parameters:
-///   - i: "horizontal" position in array grid.
-///   - j: "vertical" position in array grid.
+///   - i: "horizontal" position in the mesh.
+///   - j: "vertical" position in the mesh.
 ///   - nB: number of elements horizontally.
 ///   - nH: number of elements vertically.
 /// - Returns: Dictionary initialized with parameters for heating simulation.
 private func elementMaterialDefinition(i:Int, j:Int, nB:Int, nH:Int) -> Dictionary<String, Any> {
     var params = Dictionary<String, Any>()
-    let noNodesPerGlassPane = 5
+    let noElementsPerGlassPane = 5
     
     // STRUCTURE OF OVEN DOOR WINDOW.
     
-    if i >= 0 && i < noNodesPerGlassPane || i >= (nB-1)-noNodesPerGlassPane && i < nB {
+    if i >= 0 && i < noElementsPerGlassPane || i >= nB-noElementsPerGlassPane && i < nB {
         params = GlobalData.getParameters(for: .glass)
     } else {
         params = GlobalData.getParameters(for: .argon)
     }
 
     if(i == 0) {
-        params["t_ambient_l"] = globalData?.t_ambient_l
+        let t_ambient = (globalData?.t_ambient_l)!
+        params["t_ambient_l"] = t_ambient
+        params["alpha"] = GlobalData.calculateAlpha(t_surf: (globalData?.t_start)!, t_ambient: t_ambient)
     }
     else if(i == nB-1) {
-        params["t_ambient_r"] = globalData?.t_ambient_r
-        params["alfa"] = params["alfa_fan-forced_oven"]
+        let t_ambient = (globalData?.t_ambient_r)!
+        params["t_ambient_r"] = t_ambient
+        params["alpha"] = GlobalData.calculateAlpha(t_surf: (globalData?.t_start)!, t_ambient: t_ambient, phi: 3.75)
     }
     
     return params
 }
 
 
-private func borderCondition(i:Int, j:Int, nB:Int, nH:Int) -> Bool {
+private func boundryCondition(i:Int, j:Int, nB:Int, nH:Int) -> Bool {
     return  i == 0 || i == nB-1 ? true : false
 }
 
