@@ -28,5 +28,9 @@ for i in range(200):
     ax.set_title('Oven door glass window after: {:d} seconds'.format(dTau*i))
     cbar = fig.colorbar(im)
     cbar.set_label('temperature [℃]')
+    xposition = [5.0, 35.0]
+    for xc in xposition:
+        plt.axvline(x=xc, color='b', linestyle='--')
     plt.savefig('./png/heatmap-{:d}.png'.format(i))
+
     plt.close(fig)
