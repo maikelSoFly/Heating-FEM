@@ -42,9 +42,9 @@ class GlobalData {
     /// Number of all elements.
     let ne:Int
     /// Shape functions derivatives in respect to local Ksis.
-    private(set) var iPoints_dNdKsi:[[Double]]
+    private(set) var ips_dNdKsi:[[Double]]
     /// Shape functions derivatives in respect to local Etas.
-    private(set) var iPoints_dNdEta:[[Double]]
+    private(set) var ips_dNdEta:[[Double]]
     /// Shape functions of local points.
     private(set) var shapeFunctionsVals:[[Double]]
     /// H matrix for current element. H = [H]+[C]/dT.
@@ -104,8 +104,8 @@ class GlobalData {
         self.nh = nH * nB
         self.ne = (nH-1) * (nB-1)
         
-        self.iPoints_dNdKsi = [[Double]]()
-        self.iPoints_dNdEta = [[Double]]()
+        self.ips_dNdKsi = [[Double]]()
+        self.ips_dNdEta = [[Double]]()
         self.shapeFunctionsVals = [[Double]]()
         
         self.localElement = LocalElement()
@@ -119,8 +119,8 @@ class GlobalData {
         
         //MARK: - Initializing shape functions.
         let sfuncs = calculateShapeFunctions(integrationPoints: points2p)
-        self.iPoints_dNdKsi = sfuncs.0
-        self.iPoints_dNdEta = sfuncs.1
+        self.ips_dNdKsi = sfuncs.0
+        self.ips_dNdEta = sfuncs.1
         self.shapeFunctionsVals = sfuncs.2
         
         //MARK: - Initializing local element.
@@ -276,9 +276,9 @@ class GlobalData {
             //MARK: - Loop through every integration point of the element.
             for ipi in 0..<4 {
                 // Get jacobian corresponding to current integration point.
-                let jacobian = Jacobian(intPoint: ipi, xs: coordsX, ys: coordsY, dNdKsis: iPoints_dNdKsi, dNdEtas: iPoints_dNdEta)
+                let jacobian = Jacobian(ipi, xs: coordsX, ys: coordsY, dNdKsis: ips_dNdKsi, dNdEtas: ips_dNdEta)
                 detJ = abs(jacobian.det)
-                let dNdKsi = iPoints_dNdKsi[ipi], dNdEta = iPoints_dNdEta[ipi]
+                let dNdKsi = ips_dNdKsi[ipi], dNdEta = ips_dNdEta[ipi]
                 t0 = 0.0
                 
                 //MARK: - Compute dNdx and dNdy vectors and t0.
