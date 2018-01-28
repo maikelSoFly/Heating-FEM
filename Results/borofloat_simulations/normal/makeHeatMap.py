@@ -1,0 +1,34 @@
+import numpy as np
+import numpy.random
+import matplotlib.pyplot as plt
+import matplotlib
+from mpl_toolkits.axes_grid1 import make_axes_locatable
+import csv
+
+
+heatmaps = []
+dTau = 3
+i = 1200
+
+heatmap = []
+with open('./csv/heatmap-{:d}.csv'.format(i), newline='') as csvfile:
+    content = csv.reader(csvfile, delimiter=' ', quotechar='|')
+
+    for row in content:
+        heatmap.append(np.fromstring(row[0], dtype=float, sep=','))
+heatmaps.append(heatmap)
+
+
+# Plot heatmap
+fig, ax = plt.subplots(nrows=1, ncols=1)
+im = ax.imshow(heatmaps[0], cmap='hot')
+ax.invert_yaxis()
+plt.xlabel('4 centimeters')
+plt.ylabel('4 centimeters')
+ax.set_title('Oven door glass window after: {:d} seconds'.format(dTau*i))
+cbar = fig.colorbar(im)
+cbar.set_label('temperature [℃]')
+xposition = [5.0, 35.0]
+for xc in xposition:
+    plt.axvline(x=xc, color='b', linestyle='--')
+plt.show()

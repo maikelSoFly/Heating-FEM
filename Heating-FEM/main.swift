@@ -9,10 +9,10 @@
 import Foundation
 
 var globalData:GlobalData? = nil
-private let saveToFile = false
+private let saveToFile = true
 /// Save to file every nth time step.
 private let saveToFileStride = 1
-private let confFileName = "default_conf"
+private let confFileName = "oven_conf"
 
 
 
@@ -20,8 +20,8 @@ func run() {
     if let dict = FileParser.getDictionary(fromJsonFile: confFileName) {
         if let gd = GlobalData(dict: dict) {
             globalData = gd
-            gd.createMesh(materialDefinition: nil, boundryCondition: nil)
-            //gd.setStableTimeStep(forMaterial: .glass)
+            gd.createMesh(materialDefinition: elementMaterialDefinition, boundryCondition: boundryCondition)
+            gd.setStableTimeStep(forMaterial: .glass)
             
             
             let noTimeSteps = gd.tau/gd.d_tau
@@ -41,12 +41,11 @@ func run() {
                     }
                 }
                 
-                printTemperatures(arr: heatMap[step])
+                //printTemperatures(arr: heatMap[step])
                 
                 var start = Date()
                 gd.compute()
-                var end = Date()
-                print("\tCompute time: \(end.timeIntervalSince(start))")
+                print("\tCompute time: \(Date().timeIntervalSince(start))")
             
                 start = Date()
                 if let temperatures = Solver.gaussElimination(gk: Array(gd.H_global), rk: Array(gd.P_global)) {
@@ -55,8 +54,7 @@ func run() {
                             node.temp = temperatures[i]
                         }
                 }
-                end = Date()
-                print("\tSolver time: \(end.timeIntervalSince(start))\n")
+                print("\tSolver time: \(Date().timeIntervalSince(start))\n")
                 
                 //MARK: - Save heatmap to file in /Documents directory.
                 if saveToFile && step % saveToFileStride == 0 {
@@ -114,7 +112,7 @@ private func elementMaterialDefinition(i:Int, j:Int, nB:Int, nH:Int) -> Dictiona
     else if(i == nB-1) {
         let t_ambient = (globalData?.t_ambient_r)!
         params["t_ambient_r"] = t_ambient
-        params["alpha"] = GlobalData.calculateAlpha(t_surf: (globalData?.t_start)!, t_ambient: t_ambient, phi: 3.75)
+        params["alpha"] = GlobalData.calculateAlpha(t_surf: (globalData?.t_start)!, t_ambient: t_ambient, phi: 5.0)
     }
     
     return params
@@ -125,5 +123,6 @@ private func boundryCondition(i:Int, j:Int, nB:Int, nH:Int) -> Bool {
     return  i == 0 || i == nB-1 ? true : false
 }
 
-
+let start = Date()
 run()
+print("Program executed in \(Date().timeIntervalSince(start)) seconds.")

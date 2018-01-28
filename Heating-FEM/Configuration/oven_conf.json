@@ -7,7 +7,7 @@
     "t_ambient": 21,
     "t_ambient_l": 21,
     "t_ambient_r": 250,
-    "tau": 6000,
+    "tau": 3600,
     "d_tau": 60,
 }
 

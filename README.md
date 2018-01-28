@@ -6,8 +6,14 @@ To solve such problem I used **Finite Elements Method** and some additional algo
 
 ###### All results are placed in _Results_ catalog.
 ---
-### Fan-forced heating (alpha = ~15 W/m<sup>2</sup>K):
+### Fan-forced heating (alpha = ~15 W/m<sup>2</sup>K, duration: 10 min, time step: 3 sec):
 
 <p align="center">
     <img src="https://raw.githubusercontent.com/maikelSoFly/Heating-FEM/master/Results/borofloat_simulations/fan_forced/borofloat_animation_600sec.gif" width="550"/>
+</p>
+
+### Normal heating (alpha = ~9 W/m<sup>2</sup>K, duration: 10 min, time step: 3 sec):
+
+<p align="center">
+    <img src="https://raw.githubusercontent.com/maikelSoFly/Heating-FEM/master/Results/borofloat_simulations/normal/normal_animation_600sec.gif" width="550"/>
 </p>

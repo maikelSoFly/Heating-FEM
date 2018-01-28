@@ -7,10 +7,24 @@ import csv
 
 
 heatmaps = []
-dTau = 5
-for i in range(30):
+dTau = 3
+selectedSheets = []
+
+earlyPhaseSheets = np.arange(40)[1::4]
+print(earlyPhaseSheets)
+middlePhaseSheets = np.arange(100, 600)[0::50]
+print(middlePhaseSheets)
+endPhaseSheets = np.arange(930, 1201)[0::30]
+print(endPhaseSheets)
+
+selectedSheets.extend(earlyPhaseSheets)
+selectedSheets.extend(middlePhaseSheets)
+selectedSheets.extend(endPhaseSheets)
+
+
+for i in selectedSheets:
     heatmap = []
-    with open('heatmap-{:d}.csv'.format(i+1), newline='') as csvfile:
+    with open('./csv/heatmap-{:d}.csv'.format(i), newline='') as csvfile:
         content = csv.reader(csvfile, delimiter=' ', quotechar='|')
 
         for row in content:
@@ -26,7 +40,7 @@ fig.tight_layout()
 for i, ax in enumerate(axes.flat):
     im = ax.imshow(heatmaps[i], cmap='hot')
     ax.invert_yaxis()
-    ax.set_title('{:d}s'.format(dTau*(i+1)))
+    ax.set_title('{:d}s'.format(dTau*(selectedSheets[i])))
 
 
     divider = make_axes_locatable(ax)
