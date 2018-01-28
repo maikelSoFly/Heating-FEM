@@ -1,11 +1,12 @@
 # Heating-FEM
 
-**Heating simulation of a oven door glass window made out of two heat-resistant glass panes with a space between filled with argon**. Model is surrounded with room temperature from left-hand side and **250℃ (fan-forced)** from right-hand side. Glass panes have both **width of 5 nodes** in the grid, which is aproximately 5.7 mm.
+**Heating simulation of a 4 scm thick oven door glass window made out of two heat-resistant BOROFLOAT® 33 - Borosilicate glass panes with a space between filled with argon**. Model is surrounded with room temperature from left-hand side and **250℃ (fan-forced)** from right-hand side. Glass panes have both **width of 6 nodes (5 elements)** in the grid, which is 5 mm.
 
 To solve such problem I used **Finite Elements Method** and some additional algorithms like Gauss's Elimination.
 
-###### All results are placed in _Results_ catalog, but here is some animation of the early phase of heating:
+###### All results are placed in _Results_ catalog.
 ---
+### Fan forced heating:
 
 <p align="center">
     <img src="https://raw.githubusercontent.com/maikelSoFly/Heating-FEM/master/Results/borofloat_simulations/fan_forced/borofloat_animation_600sec.gif" width="550"/>
