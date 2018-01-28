@@ -8,7 +8,7 @@ import csv
 
 heatmaps = []
 dTau = 3
-i = 1180
+i = 1200
 
 heatmap = []
 with open('./csv/heatmap-{:d}.csv'.format(i), newline='') as csvfile:

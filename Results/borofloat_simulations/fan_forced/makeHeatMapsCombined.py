@@ -14,7 +14,7 @@ earlyPhaseSheets = np.arange(40)[1::4]
 print(earlyPhaseSheets)
 middlePhaseSheets = np.arange(100, 600)[0::50]
 print(middlePhaseSheets)
-endPhaseSheets = np.arange(880, 1180)[0::30]
+endPhaseSheets = np.arange(930, 1201)[0::30]
 print(endPhaseSheets)
 
 selectedSheets.extend(earlyPhaseSheets)
