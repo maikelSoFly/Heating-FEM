@@ -9,11 +9,11 @@
 import Foundation
 
 var globalData:GlobalData? = nil
-private let saveToFile = true
+private let saveToFile = false
 /// Save to file every nth time step.
 private let saveToFileStride = 1
 private let confFileName = "oven_conf"
-
+private let ovenConvectionType:GlobalData.ConvectionType = .fanForced
 
 
 func run() {
@@ -71,7 +71,6 @@ func run() {
 }
 
 
-
 private func printTemperatures(arr:[[Double]]) {
     for row in arr {
         for temp in row {
@@ -112,7 +111,8 @@ private func elementMaterialDefinition(i:Int, j:Int, nB:Int, nH:Int) -> Dictiona
     else if(i == nB-1) {
         let t_ambient = (globalData?.t_ambient_r)!
         params["t_ambient_r"] = t_ambient
-        params["alpha"] = GlobalData.calculateAlpha(t_surf: (globalData?.t_start)!, t_ambient: t_ambient, phi: 5.0)
+        params["alpha"] = GlobalData.calculateAlpha(t_surf: (globalData?.t_start)!, t_ambient: t_ambient,
+                                                    phi: ovenConvectionType.rawValue)
     }
     
     return params
@@ -122,6 +122,8 @@ private func elementMaterialDefinition(i:Int, j:Int, nB:Int, nH:Int) -> Dictiona
 private func boundryCondition(i:Int, j:Int, nB:Int, nH:Int) -> Bool {
     return  i == 0 || i == nB-1 ? true : false
 }
+
+
 
 let start = Date()
 run()

@@ -71,6 +71,12 @@ class GlobalData {
         case argon = "Argon"
     }
     
+    // Raw value is value of phi.
+    enum ConvectionType:Double {
+        case fanForced = 5.0
+        case normal = 2.32
+    }
+    
     
     
     init?(dict:Dictionary<String, Any>) {
