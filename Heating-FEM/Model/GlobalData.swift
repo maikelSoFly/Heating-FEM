@@ -48,11 +48,11 @@ class GlobalData {
     /// Shape functions of local points.
     private(set) var shapeFunctionsVals:[[Double]]
     /// H matrix for current element. H = [H]+[C]/dT.
-    private(set) var H_current:[[Double]]
+    private(set) var H_element:[[Double]]
     /// H matrix for entire mesh. H = [H]+[C]/dT.
     private(set) var H_global:[[Double]]
     /// P vector for current element. P = {P}+{[C]/dT}*{t0}.
-    private(set) var P_current:[Double]
+    private(set) var P_element:[Double]
     /// P vector for entire mesh. P = {P}+{[C]/dT}*{t0}.
     private(set) var P_global:[Double]
     let mesh:Mesh
@@ -118,8 +118,8 @@ class GlobalData {
         
         self.H_global = Array(repeating: Array(repeating: Double(0), count: nh), count: nh)
         self.P_global = Array(repeating: Double(0), count: nh)
-        self.H_current = Array(repeating: Array(repeating: Double(0), count: 4), count: 4)
-        self.P_current = Array(repeating: Double(0), count: 4)
+        self.H_element = Array(repeating: Array(repeating: Double(0), count: 4), count: 4)
+        self.P_element = Array(repeating: Double(0), count: 4)
         
         self.mesh = Mesh()
         
@@ -249,9 +249,7 @@ class GlobalData {
         var coordsX = Array(repeating: Double(), count: 4)
         /// Y coordinates of current element's nodes.
         var coordsY = Array(repeating: Double(), count: 4)
-        /// Temperatures of current element's nodes at current time step.
-        var temperatures_start = Array(repeating: Double(), count: 4)
-        /// Determinant of matrix.
+        /// Determinant of jacoby matrix.
         var detJ = 0.0
         /// Interpolated temperature of current integration point at current time step.
         var t0:Double
@@ -262,8 +260,8 @@ class GlobalData {
         //MARK: - Loop through every element in the mesh.
         for element in mesh.EL {
             //MARK: - Initialize element-local H matrix and P vector with zeros.
-            self.H_current = Array(repeating: Array(repeating: Double(0), count: 4), count: 4)
-            self.P_current = Array(repeating: Double(0), count: 4)
+            self.H_element = Array(repeating: Array(repeating: Double(0), count: 4), count: 4)
+            self.P_element = Array(repeating: Double(0), count: 4)
             //MARK: - Get heat simulation's parameters.
             // If element has its own heat simulation's parameters - use them.
             // Otherwise use global parameters from data.json.
@@ -276,9 +274,10 @@ class GlobalData {
             for i in 0..<4 {
                 coordsX[i] = element.ND[i].x
                 coordsY[i] = element.ND[i].y
-                temperatures_start[i] =  element.ND[i].temp
             }
             
+            
+            //MARK: - VOLUME.
             //MARK: - Loop through every integration point of the element.
             for ipi in 0..<4 {
                 // Get jacobian corresponding to current integration point.
@@ -296,15 +295,15 @@ class GlobalData {
                               jacobian.matrixInverted[1][1] * dNdEta[i]
                     
                     //MARK: - Interpolating temperature of current IP, from every other element's IPs.
-                    t0 += temperatures_start[i] * shapeFunctionsVals[ipi][i]
+                    t0 += element.ND[i].temp * shapeFunctionsVals[ipi][i]
                 }
             
                 //MARK: - Volume integral.
                 for i in 0..<4 {
                     for j in 0..<4 {
                         C_ij = c * ro * shapeFunctionsVals[ipi][i] * shapeFunctionsVals[ipi][j] * detJ
-                        H_current[i][j] += k * (dNdx[i] * dNdx[j] + dNdy[i] * dNdy[j]) * detJ + (C_ij / d_tau)
-                        P_current[i] += (C_ij / d_tau) * t0
+                        H_element[i][j] += k * (dNdx[i] * dNdx[j] + dNdy[i] * dNdy[j]) * detJ + (C_ij / d_tau)
+                        P_element[i] += (C_ij / d_tau) * t0
                     }
                 }
             }
@@ -325,21 +324,22 @@ class GlobalData {
                 for i in 0..<2 {
                     for j in 0..<4 {
                         for k in 0..<4 {
-                            H_current[j][k] += alpha * shapeFunc![i][j] * shapeFunc![i][k] * detJ
+                            H_element[j][k] += alpha * shapeFunc![i][j] * shapeFunc![i][k] * detJ
                         }
-                        P_current[j] += alpha * t_ambient * shapeFunc![i][j] * detJ
+                        P_element[j] += alpha * t_ambient * shapeFunc![i][j] * detJ
                     }
                 }
             }
+            
             
             //MARK: - AGREGATION FROM LOCAL TO GLOBAL.
             for i in 0..<4 {
                 let first = element.ND[i].iid
                 for j in 0..<4 {
                     let next = element.ND[j].iid
-                    H_global[first][next] += H_current[i][j]
+                    H_global[first][next] += H_element[i][j]
                 }
-                P_global[first] += P_current[i]
+                P_global[first] += P_element[i]
             }
         }
     }

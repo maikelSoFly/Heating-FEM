@@ -12,7 +12,7 @@ var globalData:GlobalData? = nil
 private let saveToFile = false
 /// Save to file every nth time step.
 private let saveToFileStride = 1
-private let confFileName = "oven_conf"
+private let confFileName = "default_conf"
 private let ovenConvectionType:GlobalData.ConvectionType = .fanForced
 
 
@@ -20,8 +20,8 @@ func run() {
     if let dict = FileParser.getDictionary(fromJsonFile: confFileName) {
         if let gd = GlobalData(dict: dict) {
             globalData = gd
-            gd.createMesh(materialDefinition: elementMaterialDefinition, boundryCondition: boundryCondition)
-            gd.setStableTimeStep(forMaterial: .glass)
+            gd.createMesh(materialDefinition: nil, boundryCondition: nil)
+            //gd.setStableTimeStep(forMaterial: .glass)
             
             
             let noTimeSteps = gd.tau/gd.d_tau
@@ -41,7 +41,7 @@ func run() {
                     }
                 }
                 
-                //printTemperatures(arr: heatMap[step])
+                printTemperatures(arr: heatMap[step])
                 
                 var start = Date()
                 gd.compute()
